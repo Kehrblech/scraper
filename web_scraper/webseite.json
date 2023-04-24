@@ -1,0 +1,60 @@
+[
+    {
+        "heading": "Website",
+        "caption": null,
+        "paragraph": [],
+        "number_paragraphs": 0,
+        "word_total": 0
+    },
+    {
+        "heading": "Die Entstehung der Websites",
+        "caption": null,
+        "paragraph": [
+            "Im Jahr 1990 wurde die erste Website der Welt von einem Mitarbeiter des CERN-Forschungsprojekts in Genf online gestellt. Nur drei Jahre später startete das World Wide Web mit Websites, die von überall auf der Welt über eine Internet-Verbindung aufgerufen werden konnten.",
+            "Die ersten Websites bestanden fast ausschließlich aus Texten und nur wenigen Bildern. Im Zuge der Kommerzialisierung des Internets und der Ausweitung der Bandbreite von Internet-Verbindungen wurden Websites immer komplexer. Durch die zunehmend mobile Nutzung des Internets hat sich jedoch wieder ein Trend zur Vereinfachung beim Design entwickelt.",
+            "Heute gibt es weltweit über 1,3 Milliarden Websites, von einer kleinen eigenen Homepage mit nur einer URL, wie man sie mit einem Homepage-Baukasten erstellen kann, bis hin zum komplexen, professionell erstellten Online Shop mit vielen tausend Unterseiten. Ein großer Teil der auf der ganzen Welt genutzten Internet-Seiten ist jedoch nicht über öffentliche Netzwerke erreichbar. Dies sind einerseits firmeninterne Intranets und andererseits dem sogenannten „Dark Web“, das nur mit bestimmten Browsern erreichbar ist. Die tatsächliche Zahl an Websites könnte demnach schon längst die Grenze der oben genannten 1,3 Milliarden überschritten haben.",
+            "Der weltweite Traffic im Zusammenhang mit Websites erzeugt eine tägliche Datenmenge von mehr als vier Milliarden Gigabyte."
+        ],
+        "number_paragraphs": 4,
+        "word_total": 195
+    },
+    {
+        "heading": "Aufbau einer Website",
+        "caption": null,
+        "paragraph": [
+            "Eine Website besteht heute meist aus mehreren Webseiten (engl. Web Pages). Diese Webseiten sind HTML-Dokumente, die in einem Verzeichnis auf einer Domain hinterlegt werden. Die Domain ist dabei nicht zu verwechseln mit der Website. Die Domain entspricht der Internet-Adresse, über welche die Inhalte der Website abgerufen werden können.",
+            "HTML ist keine Programmier- sondern eine Seitenbeschreibungssprache: Im Code wird definiert, welches Element an welcher Stelle wie angezeigt werden soll. So wird beim Design einer Webseite kein Bild für die gesamte Seite verwendet, vielmehr wird im Code definiert, wie die Schrift, die Farben und natürlich auch mögliche Bilder oder Videos angeordnet werden – abhängig davon, mit welchem Gerät (z. B. Desktop-Rechner oder Smartphone) darauf zugegriffen wird. Dies wird dann Responsive Design genannt.",
+            "Die einzelnen Webseiten einer Website sind in Verzeichnissen angelegt, die jeweils eine eigene URL bilden. Geben User diese URL ein, können sie die gewünschte Webseite aufrufen. Die URL für die einzelnen Webseiten wird auch von der Suchmaschine gespeichert und im sogenannten „Such-Snippet“ mit Elementen wie Meta Description, Meta Title oder Rich Snippets in den Suchergebnissen als klickbarer Link angezeigt."
+        ],
+        "number_paragraphs": 3,
+        "word_total": 179
+    },
+    {
+        "heading": "Websites erstellen",
+        "caption": null,
+        "paragraph": [
+            "Eine eigene Homepage kann grundsätzlich mit Hilfe eines einfachen Texteditors erstellt werden. Darin können User HTML-Elemente einfügen. Diese HTML-Datei wird anschließend auf einen Server in ein Verzeichnis einer Domain hochgeladen. Auf diese Weise kann ein Client die Website mit deren Inhalten über das Web abrufen.",
+            "In einem HTML-Dokument können Pfade zu weiteren Dateitypen enthalten sein, wie z. B. CSS-Dateien oder JavaScript-Dateien. Sie erhöhen die Funktionalität oder können das Layout einer Website beeinflussen.",
+            "Viele Webmaster lassen heute keine individuellen Websites programmieren, sondern greifen entweder auf einen sogenannten „Homepage-Baukasten“ zurück oder sie nutzen sogenannte „CMS“, d. h. Content-Management-Systeme. Dabei handelt es sich um Programme, mit deren Hilfe Unternehmen Webseiten einfach und professionell erstellen können. Zu den gängigsten CMS gehören Unternehmen wie WordPress, Joomla! oder Wix."
+        ],
+        "number_paragraphs": 3,
+        "word_total": 123
+    },
+    {
+        "heading": "Arten von Websites",
+        "caption": null,
+        "paragraph": [
+            "Im World Wide Web gibt es ganz unterschiedliche Typen von Websites.",
+            "Nicht zu den klassischen Websites zählen zum Beispiel Apps, die auf Smartphones oder Computern genutzt werden. Sie sind vergleichbar mit Software, die auf einem Rechner installiert wird. Von dieser unterscheiden sie sich allerdings dadurch, dass sie in der Regel nur mit einer Internet-Verbindung nutzbar sind. Apps für Android-Geräte können im Rahmen von App Indexing mit eigenen URLs versehen und von Google indexiert werden. In dieser Form sind Apps wiederum vergleichbar mit klassischen Websites. Allerdings sind sie ausschließlich für mobile Endgeräte und nicht für Desktop PCs konzipiert worden."
+        ],
+        "number_paragraphs": 2,
+        "word_total": 98
+    },
+    {
+        "heading": "Erweitern Sie Ihr Wissen mit unseren kuratierten Packs.",
+        "caption": null,
+        "paragraph": [],
+        "number_paragraphs": 0,
+        "word_total": 0
+    }
+]
