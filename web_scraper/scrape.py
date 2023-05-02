@@ -255,6 +255,33 @@ def search_results(soup):
     search_results = soup.find("ul", {"class": "mw-search-results"})
     return search_results
 
+def contact(soup):
+    keyword = "impressum|kontakt|about us|contact"  
+    element = soup.find(lambda tag: tag.name == "a" and any(kw in (tag.get("href") or tag.text.lower()) for kw in keyword.split("|")))
+    print("sheesh")
+    if element:
+        if element.get("href"):
+            contact_form_url = element.get("href")
+            print("Kontaktformular-URL gefunden:", contact_form_url)
+            return contact_form_url
+        else:
+            # Suchen nach URLs in anderen Attributen oder im Textinhalt des Elements
+            contact_form_url = None
+            if "onclick" in element.attrs:
+                onclick_value = element.attrs["onclick"]
+                # Hier können Sie z.B. reguläre Ausdrücke verwenden, um die URL aus dem onclick-Wert zu extrahieren
+                # Beispiel: contact_form_url = re.search(r"'(.*?)'", onclick_value).group(1)
+                print("URL im onclick-Attribut gefunden:", onclick_value)
+                return onclick_value
+
+            elif element.text:
+                # Hier können Sie z.B. reguläre Ausdrücke verwenden, um die URL aus dem Textinhalt des Elements zu extrahieren
+                print("URL im Textinhalt gefunden:", element.text)
+                return element.text
+    else:
+        print("Kein Kontaktformular gefunden.")
+
+
 
 def get_date():
     return str(datetime.date.today()).strip()

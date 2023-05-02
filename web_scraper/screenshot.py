@@ -20,6 +20,6 @@ if accept_button is not None:
     accept_button.click()
 
 
-driver.save_screenshot('screenshot.jpg')  # Speichere den Screenshot in einer Datei
+driver.save_screenshot('screenshot.jpg')  
 
 driver.quit()
