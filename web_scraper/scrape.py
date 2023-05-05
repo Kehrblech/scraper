@@ -10,7 +10,8 @@ from urllib.parse import urlparse
 def get_soup(url):
     response = requests.get(url.encode('utf-8'))
     html = response.content
-
+    if response.status_code == 403:
+        return "403 Forbidden"+str(Exception)
     soup = BeautifulSoup(html, 'html.parser', from_encoding='utf-8')
     return soup
     

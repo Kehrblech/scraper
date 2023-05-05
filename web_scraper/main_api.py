@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
 import scrape
 import scrape_wiki_dyn
@@ -73,22 +73,41 @@ api.add_resource(Link, "/link/<path:url>")
 class Contact(Resource):
 
     def get(self,argument=None, url=None):
-        print("contact"+url)
-        if(url != None):
-            if(argument != None):
-                if(argument == "find"):
-                    return scrape_contact.contact_find(scrape.get_soup(url)), 200
-                elif(argument == "text"):
-                    return scrape_contact.contact_main(scrape.get_soup(url)), 200
-                elif(argument == "url"):
-                    return scrape_contact.contact_url(scrape.get_soup(url)), 200
-                else:
-                    return "Argument invalid try /contact/find/www.the-website-you-want-to-scrape.com \n Use following arguments find | text | url", 404
-            return scrape_contact.contact_main(scrape.get_soup(url)), 200
-        else:
-            return "Missing URL\nTry /contact/www.the-website-you-want-to-scrape.com", 404
+        try:
+            if(url != None):
+                if(argument != None):
+                    if(argument == "find"):
+                        return scrape_contact.contact_find(scrape.get_soup(url),url), 200
+                    elif(argument == "text"):
+                        return scrape_contact.contact_main(scrape.get_soup(url),url), 200
+                    elif(argument == "url"):
+                        return scrape_contact.contact_url(scrape.get_soup(url),url), 200
+                    else:
+                        return "Argument invalid try /contact/find/www.the-website-you-want-to-scrape.com. Use following arguments find | text | url", 404
+                return scrape_contact.contact_main(scrape.get_soup(url),url), 200
+            else:
+                return "Missing URL! Try /contact/www.the-website-you-want-to-scrape.com", 404
+        except Exception as e:
+                return  "Error:" + str(e)
+    def post(self):
+        data = request.get_json()
+        if data is None or not isinstance(data, list):
+            return "Wrong Input! need a JSON format!", 400
 
-api.add_resource(Contact, "/contact/<path:url>", "/contact/<string:argument>/<path:url>")
+        results = []
+        for url in data:
+            try:
+                result = {
+                    "url": url,
+                    "contact": scrape_contact.contact_find(scrape.get_soup(url), url)
+                }
+                results.append(result)
+            except Exception as e:
+                results.append({"url": url, "error": str(e)})
+
+        return results, 200
+
+api.add_resource(Contact,"/contact/", "/contact/<path:url>", "/contact/<string:argument>/<path:url>")
 
 class Heading(Resource):
 

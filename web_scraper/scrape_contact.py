@@ -1,85 +1,71 @@
 import json
 from bs4 import BeautifulSoup
 import requests
+import errors
 import scrape
 import scrape_each_dyn
 import search_contact
 from urllib.parse import urljoin, urlparse
 
-# URL des Wikipedia-Artikels
-url = "https://holzhandel-deutschland.de/"
-
-# Verbindung herstellen und HTML-Code abrufen
-
-response = requests.get(url)
-html_code = response.text
-
-# HTML mit BeautifulSoup analysieren
-soup = BeautifulSoup(html_code, 'html.parser')
-
-def contact_url(soup):
+def contact_url(soup,org_url):
     if soup.head and soup.head.link and 'href' in soup.head.link.attrs:
         url = soup.head.link['href']
     parsed_url = urlparse(url)
 
-    # Extract the scheme and domain from the parsed URL
+    # extract url without subdomains
     scheme = parsed_url.scheme
-    domain = parsed_url.netloc.split('.')[-2] + '.' + parsed_url.netloc.split('.')[-1]
-    base_url = f"{scheme}://{domain}"
-    print("Base_URL:",base_url)
-    # if soup.head and soup.head.link and 'href' in soup.head.link.attrs:
-    #     url = soup.head.link['href']
-    # parsed_url = urlparse(url)
-    # print(parsed_url)
+    if (scheme != ""):
+        domain = parsed_url.netloc.split('.')[-2] + '.' + parsed_url.netloc.split('.')[-1]
+        base_url = f"{scheme}://{domain}"
 
-    # # Extrahieren Sie das Schema und die Netzwerklokation aus der analysierten URL
-    # scheme = parsed_url.scheme
-    # netloc = parsed_url.netloc
-
-    # # Kombinieren Sie das Schema und die Netzwerklokation, um die Standard-Domain zu erhalten
-    # base_url = f"{scheme}://{netloc}"
-
-    # print("Standard-Domain:", base_url)
+    else:
+        scheme = org_url
+        base_url = f"{scheme}"
+    print("Parsed URL:",scheme)
+    print("Base URL:",base_url)
    
-    keyword = "impressum|about us|contact|imprint"  
+    keyword = "impressum|about us|contact|imprint|about"  
     element = soup.find(lambda tag: tag.name == "a" and any(kw in (tag.get("href") or tag.text.lower()) for kw in keyword.split("|")))
     if element:
+        print("1")
         if element.get("href"):
             contact_form_url = element.get("href")
-            if not contact_form_url.startswith("http"):  # Überprüfen, ob die URL kein Protokoll enthält
+            if not contact_form_url.startswith("http"):  # check for https
                 print("no http")
-                contact_form_url = urljoin(base_url, contact_form_url)  # Kombinieren der URLs
+                contact_form_url = urljoin(base_url, contact_form_url)  # combine urls
                 
-            print("Kontaktformular-URL gefunden:", contact_form_url)
+            print("contact url found:", contact_form_url)
             return contact_form_url
         else:
-            # Suchen nach URLs in anderen Attributen oder im Textinhalt des Elements
+            # search for url's
             contact_form_url = None
             if "onclick" in element.attrs:
                 onclick_value = element.attrs["onclick"]
-                # Hier können Sie z.B. reguläre Ausdrücke verwenden, um die URL aus dem onclick-Wert zu extrahieren
-                # Beispiel: contact_form_url = re.search(r"'(.*?)'", onclick_value).group(1)
-                print("URL im onclick-Attribut gefunden:", onclick_value)
+                print("url found in onclick:", onclick_value)
                 return onclick_value
 
             elif element.text:
-                # Hier können Sie z.B. reguläre Ausdrücke verwenden, um die URL aus dem Textinhalt des Elements zu extrahieren
-                print("URL im Textinhalt gefunden:", element.text)
+                print("url found in text:", element.text)
                 return element.text
     else:
-        print("Kein Kontaktformular gefunden.")
+        for link in soup.find_all():
+            if link.has_attr('href') and any(kw in (link['href'].lower()) for kw in keyword.split("|")):
+                return link['href']
+            if link.has_attr('href') and any(kw in (link.text.lower()) for kw in keyword.split("|")):
+                return urljoin(base_url, link['href'])
+            
+        print("No contact information found.")
         
-def contact_main(soup):
-    url = contact_url(soup)
+def contact_main(soup,org_url):
+    url = contact_url(soup,org_url)
     if(url != None):
-        return scrape_each_dyn.each(scrape.get_soup(url))
+        return scrape_each_dyn.each(scrape.get_soup(url,org_url))
     else:
         return "Error no url found"
 
-def contact_find(soup):
-    if(contact_url(soup) != None):
-        return search_contact.search(contact_url(soup))
+def contact_find(soup,org_url):
+    if(contact_url(soup,org_url) != None):
+        return search_contact.find(contact_url(soup,org_url))
     else:
         return "Error no url found"
-
 
