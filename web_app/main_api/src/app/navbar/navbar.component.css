@@ -1,0 +1,13 @@
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-items {
+  display: flex;
+  gap: 10px;
+}
+.spacer {
+  flex:1 1 auto;
+}
