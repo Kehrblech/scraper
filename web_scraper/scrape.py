@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import json
 import datetime
 from urllib.parse import urlparse
-
+import re
 
 
 #return raw html 
@@ -281,8 +281,40 @@ def contact(soup):
                 return element.text
     else:
         print("Kein Kontaktformular gefunden.")
+        
+# trys to find corresponding text and return it. Element must be string
+def find_text(soup,text):
+    result = []
+    for tag in soup.find_all(text=True):
+        if text in tag:
+            #Strips annnoying return etc. also removes spaces inbetween the text
+            result.append(' '.join(tag.text.strip().replace('\n', '').replace('\r', ' ').split()))
+    return result
 
-
+def find_class(soup,item):
+    result = []
+    for tag in soup.find_all(class_ = re.compile(item)):
+        print (tag)
+        #Strips annnoying return etc. also removes spaces inbetween the text
+        result.append(tag.get_text(strip=True))
+    return result
+    
+# NEEDS adjustment doesent work always like intendet
+def find_id(soup,item):
+    result = []
+    for tag in soup.find_all(id_ = re.compile(item)):
+        print(tag)
+        #Strips annnoying return etc. also removes spaces inbetween the text
+        result.append()
+    return result
+    
+def find_element(soup,item,element):
+    result=[]
+    for tag in soup.find_all(element):
+        if item in tag[element]:
+            #Strips annnoying return etc. also removes spaces inbetween the text
+            result.append(' '.join(tag.text.strip().replace('\n', '').replace('\r', ' ').split()))
+    return result
 
 def get_date():
     return str(datetime.date.today()).strip()

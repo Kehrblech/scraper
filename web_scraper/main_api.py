@@ -153,5 +153,22 @@ class Auto(Resource):
 
 api.add_resource(Auto, "/auto/<path:url>")
 
+class Finds(Resource):
+
+    def get(self, url=None, item=None, element=None):
+        print(url)
+        if(url != None and item != None and element == None):
+            return scrape.find_text(scrape.get_soup(url),item), 200
+        elif(url != None and item != None and element == "class"):
+            return scrape.find_class(scrape.get_soup(url),item), 200
+        elif(url != None and item != None and element == "id"):
+            return scrape.find_id(scrape.get_soup(url),item), 200
+        elif(url != None and item != None and element !=None):
+            return scrape.find_element(scrape.get_soup(url),item,element), 200
+        else:
+            return "/find/the-item-you-want-to-scrape/www.the-website-you-want-to-scrape.com", 404
+
+api.add_resource(Finds, "/find/<string:item>/<path:url>","/find/<string:item>/<string:element>/<path:url>")
+
 if __name__ == '__main__':
     app.run(debug=True)
