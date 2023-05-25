@@ -80,12 +80,10 @@ def all_info(soup):
         #     else:
         #         pass
             
-    # Print the text contents of the filtered <p> elements
     for p in filtered_p_elements:
         print(p)
             
 
-    # Inhaltsverzeichnis (toc, vector-toc) extrahieren
     toc_div = soup.find('div', {'id': 'toc'})
     if toc_div:
         inhaltsverzeichnis = []
@@ -94,7 +92,6 @@ def all_info(soup):
             inhaltsverzeichnis.append(toc)
         artikel_info["Inhaltsverzeichnis"] = inhaltsverzeichnis
 
-    # Extrahierte Informationen in ein JSON-Objekt schreiben
     with open('wikipedia_artikel.json', 'w', encoding='utf-8') as file:
         json.dump(artikel_info, file, indent=4, ensure_ascii=False)
     return(artikel_info)

@@ -1,0 +1,32 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" class="matMenu">
+    <button mat-menu-item>
+      <mat-icon>gamepad</mat-icon>
+      <a href="button">Button</a>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>check_box</mat-icon>
+      <a href="checkbox">Checkbox</a>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>credit_card</mat-icon>
+      <a href="card">Card</a>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>outbox</mat-icon>
+      <a href="dialog">Dialog</a>
+    </button>
+
+  </mat-menu>
+   <span>Scraper</span>
+   <span class="example-spacer"></span>
+   <a mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" href="https://rwu.de" target="_blank">
+     <mat-icon>favorite</mat-icon>
+   </a>
+   <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+ </mat-toolbar>

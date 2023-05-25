@@ -1,14 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 
-# URL der Seite mit iframe
 url = "https://www.immobilienscout24.de/Suche/radius/haus-kaufen?centerofsearchaddress=Uhldingen-M%C3%BChlhofen;88690;;;;&geocoordinates=47.73202;9.24692;5.0&enteredFrom=result_list"
 
-# GET-Anfrage an die URL senden und HTML-Inhalt abrufen
 response = requests.get(url)
 html_code = response.text
 
-# HTML mit BeautifulSoup analysieren
 soup = BeautifulSoup(html_code, 'html.parser')
 
 print(soup)

@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
+from flask_cors import CORS
 import scrape
 import scrape_wiki_dyn
 import scrape_contact
+
 
 # #soup
 # #Table
@@ -19,7 +21,10 @@ import scrape_contact
 ### Listen entgegen nehmen von urls 
 
 app = Flask(__name__)
+
 api = Api(app)
+CORS(app)
+
 
 class Soup(Resource):
 
@@ -159,6 +164,8 @@ class Finds(Resource):
         print(url)
         if(url != None and item != None and element == None):
             return scrape.find_text(scrape.get_soup(url),item), 200
+        if(url != None and item != None and element == "metrics"):
+            return scrape.find_text_metrics(scrape.get_soup(url),item), 200
         elif(url != None and item != None and element == "class"):
             return scrape.find_class(scrape.get_soup(url),item), 200
         elif(url != None and item != None and element == "id"):
@@ -168,7 +175,30 @@ class Finds(Resource):
         else:
             return "/find/the-item-you-want-to-scrape/www.the-website-you-want-to-scrape.com", 404
 
-api.add_resource(Finds, "/find/<string:item>/<path:url>","/find/<string:item>/<string:element>/<path:url>")
+    def post(self):
+        data = request.get_json()
+        if data is None:
+            return "Wrong Input. Need a JSON format!", 400
+        keyword = data.get("keyword")
+        urls = data.get("urls")
+
+        results = []
+        tmp_result = []
+        for url in urls:
+            try:
+                tmp_result=scrape.find_text_metrics(scrape.get_soup(url), keyword)
+                result = {
+                    "url": url,
+                    "metrics": tmp_result[0],
+                    "data":tmp_result[1:]
+                }
+                results.append(result)
+            except Exception as e:
+                results.append({"url": url, "error": str(e)})
+
+        return results, 200
+
+api.add_resource(Finds, "/find","/find/","/find/<string:item>/<path:url>","/find/<string:item>/<string:element>/<path:url>")
 
 if __name__ == '__main__':
     app.run(debug=True)

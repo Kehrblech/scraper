@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  flex-grow: 1;
+  flex: 1;
+}
+
+mat-card {
+  flex: 1;
+}
+
+.heading {
+ padding: 0.2rem;
+}
+
+.header {
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.viewer-button {
+  margin-top: -1rem;
+}
+
+.tab-icon {
+  margin-right: 8px;
+}
+
+
+.first-selection {
+  display: flex;
+  flex-direction: column;
+}
+
+.second-selection {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mat-form-field {
+  flex: 1;
+}
+
+mat-divider {
+  padding: 0.6rem;
+}
+
+.example-form {
+  flex: 1;
+}
+
+.wrapper-full {
+  width: 100%;
+  flex: 1;
+}

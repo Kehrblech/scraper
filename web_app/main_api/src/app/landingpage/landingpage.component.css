@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 124px);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px; /* Example height for the footer */
+}
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.navbar-items {
+  display: flex;
+  gap: 10px;
+}
+.spacer {
+  flex:1 1 auto;
+}
+

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FiltersComponent } from './filters.component';
+import { InputBarComponent } from './input-bar.component';
 
-describe('FiltersComponent', () => {
-  let component: FiltersComponent;
-  let fixture: ComponentFixture<FiltersComponent>;
+describe('InputBarComponent', () => {
+  let component: InputBarComponent;
+  let fixture: ComponentFixture<InputBarComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FiltersComponent]
+      declarations: [InputBarComponent]
     });
-    fixture = TestBed.createComponent(FiltersComponent);
+    fixture = TestBed.createComponent(InputBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

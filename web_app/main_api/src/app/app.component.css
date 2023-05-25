@@ -1,8 +1,4 @@
-
-.main-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100vh;
-}
+.app-container{
+  min-height: calc(100vh - 64px);
+  width: 100%;
+ }
