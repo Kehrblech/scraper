@@ -4,9 +4,8 @@ from flask_cors import CORS
 import scrape
 import scrape_wiki_dyn
 import scrape_contact
+from ..summerizer import topic_models 
 
-
-# #soup
 # #Table
 # #toc
 # #links
@@ -199,6 +198,43 @@ class Finds(Resource):
         return results, 200
 
 api.add_resource(Finds, "/find","/find/","/find/<string:item>/<path:url>","/find/<string:item>/<string:element>/<path:url>")
+
+class Analysis(Resource):
+
+    def get(self, url=None, keyword=None):
+        print(url)
+        if(url != None and keyword != None):
+            return topic_models.topics(scrape.concatenate_texts(scrape.analyse_keywords(scrape.get_soup(url),keyword)),3), 200
+        
+        else:
+            return "/analysis/the-item-you-want-to-scrape/www.the-website-you-want-to-scrape.com", 404
+
+    def post(self):
+        data = request.get_json()
+        if data is None:
+            return "Wrong Input. Need a JSON format!", 400
+        keyword = data.get("keyword")
+        urls = data.get("urls")
+
+        results = []
+        tmp_result = []
+        for url in urls:
+            try:
+                tmp_result=scrape.analyse_keywords(scrape.get_soup(url), keyword)
+                result = {
+                    "url": url,
+                    "metrics": tmp_result[0],
+                    "data":tmp_result[1:]
+                }
+                results.append(result)
+            except Exception as e:
+                results.append({"url": url, "error": str(e)})
+
+        return results, 200
+
+api.add_resource(Analysis, "/analysis","/analysis/","/analysis/<string:keyword>/<path:url>")
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

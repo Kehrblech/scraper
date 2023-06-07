@@ -393,6 +393,39 @@ def find_element(soup, item, element):
                 '\n', '').replace('\r', ' ').split()))
     return result
 
+def analyse_keywords(soup, keyword):
+    result = []
+    text_counter = 0
+    word_counter = 0
+    total_words = 0
+    total_key_hit = 0
+    total_key_hit_near = 0 
+    for tag in soup.find_all(text=True):
+        if keyword.lower() in tag.lower():
+            word_count = 0
+            text_counter += 1
+            # Strips annnoying return etc. also removes spaces inbetween the text
+            keyword_hits = tag.text.strip().count(keyword)
+            keyword_hits_near = tag.text.strip().count(keyword.lower())
+            word_count += len(tag.text.strip().split())
+            total_words += word_count
+            total_key_hit += keyword_hits
+            total_key_hit_near += keyword_hits_near
+            texts = {
+                "text": ' '.join(tag.text.strip().replace('\n', '').replace('\r', ' ').split()),
+                "length": len(' '.join(tag.text.strip().replace('\n', '').replace('\r', ' ').split())),
+                "words": word_count,
+                "keyword_exact": keyword_hits,
+                "keyword_near": keyword_hits_near
+            }
+            result.append(texts)
+    metrics={
+        "all_words": total_words,
+        "all_keyword_hits":total_key_hit,
+        "all_near_keyword_hits":total_key_hit_near,
+    }
+    result.insert(0,metrics)
+    return result
 
 def get_date():
     return str(datetime.date.today()).strip()
