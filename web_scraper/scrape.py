@@ -42,7 +42,7 @@ def all_tables(soup):
             if columns:
                 table_dict.append([column.text.strip() for column in columns])
         table_data.append(table_dict)
-    return json.loads(json.dumps(table_data))
+    return json.loads(json.dumps(table_data, ensure_ascii=False))
 
 
 def title_main(soup):
@@ -316,6 +316,26 @@ def contact(soup):
         print("Kein Kontaktformular gefunden.")
 
 # trys to find corresponding text and return it. Element must be string
+def all_text(soup):
+    result = []
+    for tag in soup.find_all(text=True):
+        # Strips annnoying return etc. also removes spaces inbetween the text
+        result.append(' '.join(tag.text.strip().replace('\n', '').replace('\r', ' ').split()))
+    return result
+
+def all_text_min_length(soup):
+    result = []
+    for tag in soup.find_all(text=True):
+        # Strips annnoying return etc. also removes spaces inbetween the text
+        if len(tag.text.strip().split()) > 5:
+            result.append(' '.join(tag.text.strip().replace('\n', '').replace('\r', ' ').split()))
+            print(tag.text.strip())
+    return result
+
+def convert_output_to_string(output):
+    result = '\n'.join(output)
+    
+    return result
 
 
 def find_text(soup, text):
@@ -323,8 +343,7 @@ def find_text(soup, text):
     for tag in soup.find_all(text=True):
         if text in tag:
             # Strips annnoying return etc. also removes spaces inbetween the text
-            result.append(' '.join(tag.text.strip().replace(
-                '\n', '').replace('\r', ' ').split()))
+            result.append(' '.join(tag.text.strip().replace('\n', '').replace('\r', ' ').split()))
     return result
 
 
@@ -424,8 +443,17 @@ def analyse_keywords(soup, keyword):
         "all_keyword_hits":total_key_hit,
         "all_near_keyword_hits":total_key_hit_near,
     }
+    
     result.insert(0,metrics)
+    
     return result
+# Returns text in one string
+def concatenate_texts(result):
+    texts_combined = ""
+    for item in result[1:]:  # Starte bei Index 1, um die Metriken zu überspringen
+        text = item["text"]
+        texts_combined += text + " "
+    return texts_combined.strip()
 
 def get_date():
     return str(datetime.date.today()).strip()

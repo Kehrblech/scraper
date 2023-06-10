@@ -1,10 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, Response,jsonify
 from flask_restful import Api, Resource
 from flask_cors import CORS
 import scrape
 import scrape_wiki_dyn
 import scrape_contact
-from ..summerizer import topic_models 
+from summarizer_algorithms import lda, luhn, lsa, lex_rank
 
 # #Table
 # #toc
@@ -200,14 +200,27 @@ class Finds(Resource):
 api.add_resource(Finds, "/find","/find/","/find/<string:item>/<path:url>","/find/<string:item>/<string:element>/<path:url>")
 
 class Analysis(Resource):
-
-    def get(self, url=None, keyword=None):
+    #luhn.luhn_summarizer(scrape.concatenate_texts(scrape.analyse_keywords(scrape.get_soup(url),keyword)),3), 200
+    def get(self, url=None,  return_value=None, parameter=None,):
         print(url)
-        if(url != None and keyword != None):
-            return topic_models.topics(scrape.concatenate_texts(scrape.analyse_keywords(scrape.get_soup(url),keyword)),3), 200
-        
+        if(url != None and return_value== "ranking" and parameter == None):
+            return lda.topic_ranking(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url))),3), 200
+        elif(url != None and return_value== "ranking" and parameter != None):
+            return lda.topic_ranking(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url))),parameter), 200
+        elif(url != None and return_value== "luhn" and parameter == None):
+            return luhn.luhn_summarizer(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url)))), 200
+        elif(url != None and return_value== "luhn" and parameter != None):
+            return luhn.luhn_summarizer_number(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url))),parameter), 200
+        elif(url != None and return_value== "lsa" and parameter == None):
+            return lsa.lsa_summarzier(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url)))), 200
+        elif(url != None and return_value== "lsa" and parameter != None):
+            return lsa.lsa_summarzier_number(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url))),parameter), 200
+        elif(url != None and return_value== "lex" and parameter == None):
+            return lex_rank.bulletpoints(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url)))), 200
+        elif(url != None and return_value== "lex" and parameter != None):
+            return lex_rank.bulletpoints_number(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url))),parameter), 200
         else:
-            return "/analysis/the-item-you-want-to-scrape/www.the-website-you-want-to-scrape.com", 404
+            return "/analysis/return_value/www.the-website-you-want-to-scrape.com  or /analysis/return_value/parameter/www.the-website-you-want-to-scrape.com", 404
 
     def post(self):
         data = request.get_json()
@@ -232,7 +245,7 @@ class Analysis(Resource):
 
         return results, 200
 
-api.add_resource(Analysis, "/analysis","/analysis/","/analysis/<string:keyword>/<path:url>")
+api.add_resource(Analysis, "/analysis","/analysis/","/analysis/<string:return_value>/<path:url>","/analysis/<string:return_value>/<string:parameter>/<path:url>")
 
 
 
