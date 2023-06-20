@@ -4,11 +4,15 @@ import json
 import datetime
 from urllib.parse import urlparse
 import re
+from urllib.parse import unquote
 
 
 # return raw html
 def get_soup(url):
+    # decoded_url = unquote(url)
+    # response = requests.get(decoded_url)
     response = requests.get(url.encode('utf-8'))
+    
     html = response.content
     if response.status_code == 403:
         return "403 Forbidden"+str(Exception)
@@ -243,36 +247,36 @@ def table_of_contents_level_1(soup):
     return lis
 
 
-def table_of_contents_level_2(soup):
-    toc = soup.find("div", {"id": "toc"})
-    ul = toc.find("ul")
-    lis = []
-    data_li = ul.find_all('li', {'class': 'toclevel-2'})
-    for toctext in data_li:
-        lis.append(toctext.find(
-            'span', {'class': 'toctext'}).get_text(strip=True))
-    return lis
+# def table_of_contents_level_2(soup):
+#     toc = soup.find("div", {"id": "toc"})
+#     ul = toc.find("ul")
+#     lis = []
+#     data_li = ul.find_all('li', {'class': 'toclevel-2'})
+#     for toctext in data_li:
+#         lis.append(toctext.find(
+#             'span', {'class': 'toctext'}).get_text(strip=True))
+#     return lis
 
 
-def table_of_contents_level_3(soup):
-    toc = soup.find("div", {"id": "toc"})
-    ul = toc.find("ul")
-    lis = []
-    data_li = ul.find_all('li', {'class': 'toclevel-3'})
-    for toctext in data_li:
-        lis.append(toctext.find(
-            'span', {'class': 'toctext'}).get_text(strip=True))
-    return lis
+# def table_of_contents_level_3(soup):
+#     toc = soup.find("div", {"id": "toc"})
+#     ul = toc.find("ul")
+#     lis = []
+#     data_li = ul.find_all('li', {'class': 'toclevel-3'})
+#     for toctext in data_li:
+#         lis.append(toctext.find(
+#             'span', {'class': 'toctext'}).get_text(strip=True))
+#     return lis
 
 
-def table_of_contents_level_4(soup):
-    toc = soup.find("div", {"id": "toc"})
-    ul = toc.find("ul")
-    lis = []
-    data_li = ul.find_all('li', {'class': 'toclevel-4'})
-    for toctext in data_li:
-        lis.append(toctext.find(
-            'span', {'class': 'toctext'}).get_text(strip=True))
+# def table_of_contents_level_4(soup):
+#     toc = soup.find("div", {"id": "toc"})
+#     ul = toc.find("ul")
+#     lis = []
+#     data_li = ul.find_all('li', {'class': 'toclevel-4'})
+#     for toctext in data_li:
+#         lis.append(toctext.find(
+#             'span', {'class': 'toctext'}).get_text(strip=True))
     return lis
 
 

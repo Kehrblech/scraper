@@ -23,7 +23,7 @@ def lsa_summarzier_number(text, number):
     summarizer = LsaSummarizer()
 
     # Get topics and also count parameter 
-    topics = summarizer(parser.document, 5) 
+    topics = summarizer(parser.document, number) 
         
     output = {
         'Topics': [str(topic) for topic in topics]
@@ -37,7 +37,7 @@ def lsa_summarzier_number_tokenizer(text, number, tokenizer):
     summarizer = LsaSummarizer()
 
     # Get topics and also count parameter 
-    topics = summarizer(parser.document, 5) 
+    topics = summarizer(parser.document, number) 
         
     output = {
         'Topics': [str(topic) for topic in topics]

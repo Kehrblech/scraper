@@ -1,0 +1,193 @@
+openapi: '3.0.2'
+info:
+  title: Scraper API 
+  version: '0.1'
+servers:
+  - url: http://localhost:5000/
+paths:
+  /soup:
+    get:
+      tags:
+        - Scrape HTML content
+      summary: Parse a URL, get the whole HTML content 
+      description: When passing a WebUrl address, the content can be analysed with different language models. It is possible to display a ranking of the words according to the LDA algorithm, to generate bullet points or to summarise texts. In addition, the number of desired hits can be transferred. 
+      parameters:
+        - name: url
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+  /table:
+    get:
+      tags:
+        - Scrape Table content
+      summary: Parse a URL, get all Table content 
+      description: When passing a WebUrl address, the script trys to find Table content and scrapes it. 
+      parameters:
+          - name: url
+            in: path
+            required: true
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+  /toc/{url}:
+    get:
+      tags:
+        - Scrape Table of Content from a Wiki site
+      summary: Parse a Wiki URL, get the Table of Content from a Wiki site. 
+      description: When passing a WebUrl address, that belongs to a Wiki site, the Table of Content can be retrieved. 
+      parameters:
+        - name: url
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: /toc/www.the-website-you-want-to-scrape.com
+  /link/{url}:
+    get:
+      tags:
+        - Scrape Hyperlinks
+      summary: Parse a URL, get all hyperlinks from a Website
+      description: When passing a WebUrl address, all the hyperlinks are stored in a json file. 
+      parameters:
+        - name: url
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: /link/www.the-website-you-want-to-scrape.com
+  /contact/{argument}/{url}:
+    get:
+      tags:
+        - Scrape contact information
+      summary: Parse a URL, retrieve all Contact data from a Website
+      description: When passing a WebUrl address, the script trys to find all contanct information. There are diffrent Methods to Choose from. 
+      parameters:
+        - name: argument
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [find, text, url]
+        - name: url
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Argument invalid try /contact/find/www.the-website-you-want-to-scrape.com. Use following arguments find | text | url
+  /contact/:
+    post:
+      tags:
+        - Scrape contact information
+      summary: Parse multiple URLs, retrieve contact data from each website
+      description: Pass a list of URLs in JSON format to scrape contact information from multiple websites.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                keyword:
+                  type: string
+                  example: Bachelor
+                urls:
+                  type: array
+                  items:
+                    type: string
+              example: 
+                keyword: Bachelor
+                urls: 
+                  - "https://rwu.de"
+                  - "https://www.uni-konstanz.de/"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Wrong Input! need a JSON format!
+  /analysis/{analysis_type}/{url}:
+    get:
+      tags:
+        - Text analysis and categorization
+      summary: Analyze and parse a website 
+      description: When passing a WebUrl address, the content can be analysed with different language models. It is possible to display a ranking of the words according to the LDA algorithm, to generate bullet points or to summarise texts. In addition, the number of desired hits can be transferred. 
+      parameters:
+        - name: analysis_type
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [ranking, lex, lsa, luhn]
+        - name: url
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: num_results
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+  /analysis:
+    post:
+      tags:
+        - Text analysis and categorization
+      summary: Analyze and parse an array of urls with a given keyword.
+      description: Searches for a given keyword and returns elements in which it is found, as well as metrics for the whole page with exact and close hits. (Synonym searches are not yet included). 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                keyword:
+                  type: string
+                  example: Bachelor
+                urls:
+                  type: array
+                  items:
+                    type: string
+                  example: ["https://rwu.de", "https://www.uni-konstanz.de/"]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                    metrics:
+                      type: object
+                    data:
+                      type: array
+                      items:
+                        type: object
+        '400':
+          description: Bad Request
+  
+
