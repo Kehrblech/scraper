@@ -2,7 +2,7 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.summarizers.lex_rank import LexRankSummarizer
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.utils import get_stop_words
-import json
+
 
 def bulletpoints(text):
     LANGUAGE = "german"
@@ -17,6 +17,19 @@ def bulletpoints(text):
     result = {'Bulletpoints': bullet_points}
     
     return result
+
+def bulletpoints_string(text):
+    LANGUAGE = "german"
+    SENTENCES_COUNT = 5
+
+    parser = PlaintextParser.from_string(text, Tokenizer(LANGUAGE))
+    summarizer = LexRankSummarizer()
+    summarizer.stop_words = get_stop_words(LANGUAGE)
+    summary = summarizer(parser.document, SENTENCES_COUNT)
+
+    bullet_points = [str(bullet) for bullet in summary]
+    
+    return bullet_points
 
 def bulletpoints_number(text, number):
     LANGUAGE = "german"

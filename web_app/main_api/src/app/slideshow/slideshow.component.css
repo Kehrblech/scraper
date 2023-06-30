@@ -1,0 +1,24 @@
+
+button  {
+  width: 90%;
+}
+.slide-control {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+}
+.slide-control .col {
+  flex: 1;
+  text-align: center;
+}
+.slideshow-container {
+  margin: 2rem;
+  justify-content: center;
+  align-items: center;
+  width: 66%;
+}
+
+.fullscreen {
+  width: 90%;
+}

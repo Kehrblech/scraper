@@ -13,7 +13,7 @@ paths:
       description: When passing a WebUrl address, the content can be analysed with different language models. It is possible to display a ranking of the words according to the LDA algorithm, to generate bullet points or to summarise texts. In addition, the number of desired hits can be transferred. 
       parameters:
         - name: url
-          in: path
+          in: query
           required: true
           schema:
             type: string

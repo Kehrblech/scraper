@@ -1,0 +1,40 @@
+.card {
+    width: 100%;
+    margin-top: -4rem;
+}
+
+.dots {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: #000000;
+    margin: 0.8rem;
+}
+
+.dots:nth-child(1) {
+    background-color: #FC5753;
+    border-color: #DF4744;
+}
+
+.dots:nth-child(2) {
+    background-color: #FDBC40;
+    border-color: #DE9F34;
+}
+
+.dots:nth-child(3) {
+    background-color: #33C748;
+    border-color: #27AA35;
+}
+
+@media (max-width: 576px) {
+
+    .show-code {
+        margin-top: 12rem;
+    }
+
+    .card {
+        width: 100%;
+        z-index: 100;
+    }
+
+}

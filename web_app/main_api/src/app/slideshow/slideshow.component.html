@@ -1,0 +1,37 @@
+<!-- <button (click)="fetchData(url)" [disabled]="isLoading">Daten abrufen</button> -->
+<div class="d-flex justify-content-center row">
+<div class="row slide-control text-center">
+
+  <mat-card>
+    <mat-card-header class="d-flex justify-content-between align-items-center">
+      <mat-card-subtitle class="d-flex align-items-center justify-content-evenly">
+        Slide Control
+      </mat-card-subtitle>
+      <button mat-icon-button aria-label="Fullscreen" (click)="toggleFullscreen()">
+        <mat-icon>fullscreen</mat-icon>
+      </button>
+
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row d-flex justify-content-center slide-control">
+        <div class="col">
+          <button mat-raised-button color="primary" (click)="lastSlide()" [disabled]="isLoading">Back</button>
+        </div>
+        <div class="col">
+          <button mat-raised-button color="accent" (click)="nextSlide()"
+            [disabled]="isLoading">{{currentSlideIndex+1}}/{{slides.length}}</button>
+        </div>
+        <div class="col">
+          <button mat-raised-button color="primary" (click)="nextSlide()" [disabled]="isLoading">Next</button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+<div class="slideshow-container" [ngClass]="{'fullscreen': isFullscreen}">
+  <app-slide *ngFor="let slide of slides; let i = index" [slideData]="slide"
+    [hidden]="currentSlideIndex !== i"></app-slide>
+</div>
+</div>

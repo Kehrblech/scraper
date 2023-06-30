@@ -6,14 +6,13 @@ from urllib.parse import urlparse
 import re
 from urllib.parse import unquote
 
-
 # return raw html
 def get_soup(url):
     # decoded_url = unquote(url)
     # response = requests.get(decoded_url)
     response = requests.get(url.encode('utf-8'))
-    
     html = response.content
+    
     if response.status_code == 403:
         return "403 Forbidden"+str(Exception)
     soup = BeautifulSoup(html, 'html.parser', from_encoding='utf-8')
@@ -49,7 +48,14 @@ def all_tables(soup):
     return json.loads(json.dumps(table_data, ensure_ascii=False))
 
 
-def title_main(soup):
+def title_string(soup):
+    title_text = soup.find()
+    return
+    
+
+
+#Wiki Only
+def title_main_wiki(soup):
     title_main = soup.find("span", {"class": "mw-page-title-main"})
     return title_main
 
@@ -127,7 +133,7 @@ def heading_h2_with_text_name_image(soup, start):
 
 
 def heading_h2_with_text_name(soup, start):
-    h2_1 = soup.find('h2', text='Geographie')
+    h2_1 = soup.find('h2', text=start.strip())
 
     # Find the second h2 tag
     h2_2 = h2_1.find_next_sibling('h2')
@@ -319,13 +325,24 @@ def contact(soup):
     else:
         print("Kein Kontaktformular gefunden.")
 
+def hyperlink(soup):
+    result = []
+    for link in soup.find_all('a'):
+        result.append(link.get('href'))
+    return result
+
+
+
 # trys to find corresponding text and return it. Element must be string
-def all_text(soup):
+def all_text_2(soup):
     result = []
     for tag in soup.find_all(text=True):
         # Strips annnoying return etc. also removes spaces inbetween the text
         result.append(' '.join(tag.text.strip().replace('\n', '').replace('\r', ' ').split()))
     return result
+
+def all_text(soup):
+    return soup.get_text()
 
 def all_text_min_length(soup):
     result = []
@@ -415,6 +432,8 @@ def find_element(soup, item, element):
             result.append(' '.join(tag.text.strip().replace(
                 '\n', '').replace('\r', ' ').split()))
     return result
+
+
 
 def analyse_keywords(soup, keyword):
     result = []

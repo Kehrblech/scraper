@@ -4,9 +4,13 @@ from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 import scrape
 import scrape_wiki_dyn
+import scrape_each_dyn
 import scrape_contact
+import find_url
 from summarizer_algorithms import lda, luhn, lsa, lex_rank
+
 from flasgger import Swagger
+
 # #Table
 # #toc
 # #links
@@ -29,7 +33,7 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
     config={
-        'app_name': "My Flask App"
+        'app_name': "ScrAPI"
     }
 )
 
@@ -47,34 +51,19 @@ swagger = Swagger(app)
 
 class Soup(Resource):
 
-    def get(self, url=None):
-        # """
-        # Get all HTML content from a website
-        # ---
-        # tags:
-        #   - Scrape HTML content
-        # summary: Parse a URL, get the whole HTML content 
-        # description: When passing a WebUrl address, the HTML content can be retrieved as one file. 
-        # parameters:
-        #   - name: url
-        #     in: path
-        #     required: true
-        #     schema:
-        #       type: string
-        # responses:
-        #   200:
-        #     description: OK
-        # """
+    def get(self):
+        url  = request.args.get('url')
         if(url != None):
             return scrape.get_soup(url), 200
         else:
             return "Type in a url", 404
 
-api.add_resource(Soup, "/soup/<path:url>")
+api.add_resource(Soup, "/soup/")
 
 class Table(Resource):
     
-    def get(self, url=None):
+    def get(self):
+        url  = request.args.get('url')
         # """
         # Get all tables from a website
         # ---
@@ -98,7 +87,7 @@ class Table(Resource):
         else:
             return "/table/www.the-website-you-want-to-scrape.com", 404
 
-api.add_resource(Table, "/table/<path:url>")
+api.add_resource(Table, "/table/")
 
 class TOC(Resource):
 
@@ -130,7 +119,8 @@ api.add_resource(TOC, "/toc/<path:url>")
 
 class Link(Resource):
     
-    def get(self, url=None):
+    def get(self):
+        url  = request.args.get('url')
         # """
         # Get all hyperlinks from a website
         # ---
@@ -150,11 +140,11 @@ class Link(Resource):
         # """
         print(url)
         if(url != None):
-            return scrape.table_of_contents_level_all_with_number(scrape.get_soup(url)), 200
+            return scrape.hyperlink(scrape.get_soup(url)), 200
         else:
-            return "/link/www.the-website-you-want-to-scrape.com", 404
+            return "/link/?url=www.the-website-you-want-to-scrape.com", 404
 
-api.add_resource(Link, "/link/<path:url>")
+api.add_resource(Link, "/link/")
 #Try to scrape the contact forms of a given link
 ##-argument-
 ###none=(gives back all data)
@@ -289,14 +279,22 @@ api.add_resource(Text, "/text/<path:url>")
 
 class Auto(Resource):
 
-    def get(self, url=None):
+    def get(self):
+        type = request.args.get('type')
+        url = request.args.get('url')
+
         print(url)
-        if(url != None):
+        if(url != None and type == "all" or type == None):
             return scrape_wiki_dyn.all_info(scrape.get_soup(url)), 200
+        elif(url != None and type == "each"):
+            return scrape_each_dyn.each(scrape.get_soup(url)), 200
+        elif(url != None and type == "slide"):
+            return scrape_each_dyn.each_slide(scrape.get_soup(url)), 200
+
         else:
             return "/auto/www.the-website-you-want-to-scrape.com", 404
 
-api.add_resource(Auto, "/auto/<path:url>")
+api.add_resource(Auto, "/auto/")
 
 class Finds(Resource):
 
@@ -339,6 +337,35 @@ class Finds(Resource):
         return results, 200
 
 api.add_resource(Finds, "/find","/find/","/find/<string:item>/<path:url>","/find/<string:item>/<string:element>/<path:url>")
+
+class Summarizer(Resource):
+
+    def get(self):
+        type  = request.args.get('type')
+        text  = request.args.get('text')
+        num = request.args.get('num')
+
+        print(text,type,num)
+        if(text != None): 
+            return lex_rank.bulletpoints_number(text,num) , 200
+        else:
+            return "/summarizer/www.the-website-you-want-to-scrape.com", 404
+
+api.add_resource(Summarizer, "/summarizer/")
+
+
+class FindURL(Resource):
+
+    def get(self):
+        text  = request.args.get('text')
+
+        print(text)
+        if(text != None): 
+            return find_url.wiki_search(text) , 200
+        else:
+            return "/findurl/ is a service for scrape and search php index", 404
+
+api.add_resource(FindURL, "/findurl/")
 
 class Analysis(Resource):
     #luhn.luhn_summarizer(scrape.concatenate_texts(scrape.analyse_keywords(scrape.get_soup(url),keyword)),3), 200

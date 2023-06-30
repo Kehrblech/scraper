@@ -1,0 +1,41 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>{{ slideData.mainTitle }}</mat-card-title>
+    <mat-card-subtitle>{{ slideData.title }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="card-content">
+    <ng-container *ngFor="let content of slideData.text; let i = index">
+      <div class="row justify-content-center align-items-center g-2">
+        <div class="col text-content">
+          <ng-container *ngIf="content.type === 'text'">
+            <ul>
+              <ng-container *ngFor="let sentence of splitTextSentences(content.value)">
+                <li>{{ sentence.trim() }}</li>
+              </ng-container>
+            </ul>
+          </ng-container>
+          <div class="col slide-img" *ngIf="content.type === 'image' && i === currentIndex">
+            <mat-card class="card">
+              <mat-card-header>
+              </mat-card-header>
+              <mat-card-content class="card-content img-card" id="img-card">
+                <div class="img-buttons">
+                  <button mat-icon-button aria-label="" *ngIf="getNumberOfImages() > 1" (click)="lastImage()">
+                    <mat-icon>arrow_back_ios</mat-icon>
+                  </button>
+                  <button mat-icon-button aria-label="" *ngIf="getNumberOfImages() > 1" (click)="nextImage()">
+                    <mat-icon>arrow_forward_ios</mat-icon>
+                  </button>
+                </div>
+                <img [src]="content.value" alt="Slide Image">
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </mat-card-content>
+  <mat-card-actions class="d-flex justify-content-end">
+    <button mat-button>COPY</button>
+  </mat-card-actions>
+</mat-card>

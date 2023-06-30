@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GetCompComponent } from './get/get-comp/get-comp.component';
+import { SlideShowComponent } from './slideshow/slideshow.component';
+import { StartPageComponent } from './start-page/start-page.component';
 
 const routes: Routes = [
-  {path:'get', component: GetCompComponent},
+  {path:'home', component: StartPageComponent},
+  {path:'slideshow', component: SlideShowComponent},
 ];
 
 @NgModule({

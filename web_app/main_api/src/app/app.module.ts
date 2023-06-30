@@ -15,13 +15,26 @@ import { LayoutModule } from './layout/layout.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { GetModule } from './get/get.module';
+import { SlideShowComponent } from './slideshow/slideshow.component';
+import { SlideComponent } from './slide/slide.component';
+import { ApiService } from './api-service/api-service.component';
+import { StartPageComponent } from './start-page/start-page.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatInputModule} from '@angular/material/input';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     MainComponent,
     InputBarComponent,
-    LandingpageComponent
+    LandingpageComponent,
+    SlideShowComponent,
+    SlideComponent,
+    StartPageComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -35,11 +48,15 @@ import { GetModule } from './get/get.module';
     MatSidenavModule,
     MatButtonModule,
     GetModule,
+    MatSnackBarModule,
+    MatInputModule,
+    MatCardModule,
+    MatIconModule
   ],
   exports:[
     MatButtonModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

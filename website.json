@@ -1,31 +1,280 @@
 {
-    "Impressum": [
-        "Gesetzliche Anbieterkennung:",
-        "Surfshop Fehmarn Nitsch/Wiepcke OHG Hauptstr. 44 23769 Fehmarn OT Landkirchen, Deutschland",
-        "Vertretungsberechtigte Gesellschafter: Bastian Wiepcke, Michael NitschTelefon: 043715888 Telefax: 04371869591 E-Mail: info@surfshopfehmarn.de",
-        "USt-IdNr.: DE 814309362 eingetragen im Handelsregister des Amtsgerichtes Lübeck Handelsregisternummer HRA 2127 OL",
-        "Wir sind Mitglied der Initiative \"FairCommerce\".",
-        "Nähere Informationen hierzu finden Sie unter www.haendlerbund.de/faircommerce.",
-        "Rechtliche Hinweise zur Webseite",
-        "Die Europäische Kommission stellt eine Plattform für die außergerichtliche Online-Streitbeilegung (OS-Plattform) bereit, aufrufbar unter http://ec.europa.eu/odr.",
-        "Wir sind bereit, an einem außergerichtlichen Schlichtungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.  Zuständig ist die Allgemeine Verbraucherschlichtungsstelle des Zentrums für Schlichtung e.V., Straßburger Straße 8, 77694 Kehl am Rhein, www.verbraucher-schlichter.de.",
-        "Alle Texte, Bilder und weiter hier veröffentlichten Informationen unterliegen dem Urheberrecht des Anbieters, soweit nicht Urheberrechte Dritter bestehen. In jedem Fall ist eine Vervielfältigung, Verbreitung oder öffentliche Wiedergabe ausschließlich im Falle einer widerruflichen und nicht übertragbaren Zustimmung des Anbieters gestattet.",
-        "Für alle mittels Querverweis (Link) verbundenen Webinhalte übernimmt der Anbieter keine Verantwortung, da es sich hierbei nicht um eigene Inhalte handelt. Die verlinkten Seiten wurden auf rechtswidrige Inhalte überprüft, zum Zeitpunkt der Verlinkung waren solche nicht erkennbar. Verantwortlich für den Inhalt der verlinkten Seiten ist deren Betreiber. Der Anbieter hat hierzu keine allgemeine Überwachungs- und Prüfungspflicht. Bei Bekanntwerden einer Rechtsverletzung wird der entsprechende Link jedoch umgehend entfernt.",
-        "Concept, Design & Entwicklung Elbkapitäne GmbH & Co. KG",
-        "Abonnieren Sie den kostenlosen Surfshop Fehmarn Newsletter und verpassen Sie keine Neuigkeit oder Aktion mehr aus dem Shop.",
-        "Surfshop Fehmarn, der Wassersportshop mitten auf der Insel Fehmarn. Seit über 30 Jahren sind wir das Fachgeschäft in Sachen Windsurfen, Kiten und Stand up Paddling.",
-        "Surfshop FehmarnNitsch/Wiepcke OHGHauptstrasse 4423769 Fehmarn OT Landkirchen",
-        "",
-        "https://www.surfshopfehmarn.de/media/image/3b/61/4c/h-ndlerbund-logo-300px.jpg",
-        "Telefonische Beratung unter:04371 / 5888Montag - Samstag: 09:00 - 18:00 UhrSonn- und Feiertage: 11:00 - 17:00 UhrZwischen November und März geänderte Öffnungszeiten!!E-Mail: info@surfshopfehmarn.de",
-        "/themes/Frontend/TcinnSurfshopFehmarn/frontend/_public/src/img/creditcard.svg",
-        "/themes/Frontend/TcinnSurfshopFehmarn/frontend/_public/src/img/banktransfer.svg",
-        "/themes/Frontend/TcinnSurfshopFehmarn/frontend/_public/src/img/klarna.svg",
-        "/themes/Frontend/TcinnSurfshopFehmarn/frontend/_public/src/img/paypalplus.svg",
-        "/themes/Frontend/TcinnSurfshopFehmarn/frontend/_public/src/img/easycredit.png",
-        "/custom/plugins/TcinnModernTheme/Resources/Themes/Frontend/ModernTheme/frontend/_public/src/img/versandanbieter/dhl.svg",
-        "/custom/plugins/TcinnModernTheme/Resources/Themes/Frontend/ModernTheme/frontend/_public/src/img/versandanbieter/selbstabholung.svg",
-        "/custom/plugins/TcinnModernTheme/Resources/Themes/Frontend/ModernTheme/frontend/_public/src/img/versandanbieter/ups.svg",
-        "* Alle Preise verstehen sich zzgl. Mehrwertsteuer und Versandkosten und ggf. Nachnahmegebühren, wenn nicht anders beschrieben ** gilt für Lieferungen innerhalb Deutschlands, Lieferzeiten für andere Länder entnehmen Sie bitte der Schaltfläche mit den Versandinformationen ***Versandfrei bezieht sich nur auf Lieferungen in und nach Deutschland"
+    "slides": [
+        {
+            "name": "George W. Bush",
+            "images": [
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/d/d4/George-W-Bush.jpeg/220px-George-W-Bush.jpeg"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/3/32/GeorgeWBush_Signature.svg/130px-GeorgeWBush_Signature.svg.png"
+                }
+            ],
+            "text": [
+                "Als Reaktion auf die Terroranschläge am 11. September 2001 begann Bush 2001 den Krieg in Afghanistan und 2003 den völkerrechtlich umstrittenen Irakkrieg.",
+                "Im Rahmen eines umfassend konzipierten „Krieges gegen den Terror“ ließ er zusätzlich – unter weltweiter Kritik – Bürgerrechte im USA PATRIOT Act einschränken und rechtsstaatliche Grundsätze in Ermittlungsverfahren, wie die Ächtung von Folter aussetzen (siehe Guantanamo Bay).",
+                "Im Sinne einer neokonservativen Außenpolitik identifizierte Bush eine „Achse des Bösen“ von „Schurkenstaaten“, gegen die die Vereinigten Staaten als hegemoniale Weltmacht das westliche, wirtschaftlich und politisch liberale Modell ausbreiten sollten bis hin zu einem militärischen Interventionsrecht (Bush-Doktrin).",
+                "Bush steigerte die Militärausgaben und das Staatsdefizit erheblich; seine innenpolitische Ausgangsidee des „mitfühlenden Konservatismus“ sorgte für Initiativen wie die No-Child-Left-Behind-Politik, während er mit Steuersenkungen und Deregulierungsmaßnahmen eine angebotsorientierte Wirtschaftspolitik verfolgte.",
+                "Bushs Ansehen sank nach hohen Kriegsverlusten, dem Hurrikan Katrina und der Finanzkrise ab 2007, begann sich jedoch nach dem Ende seiner Amtszeit wieder zu erholen."
+            ]
+        },
+        {
+            "name": "Inhaltsverzeichnis",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Familie, Ausbildung und Persönliches",
+            "images": [
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Bush_daughters.png/220px-Bush_daughters.png"
+                }
+            ],
+            "text": [
+                "Bush ist seit 1999 Eigentümer der Prairie Chapel Ranch in der Nähe von Crawford im McLennan County in Texas, auf der er seine Ferien verbrachte und auch Staatsgäste empfing.",
+                "Er hält sich außerdem oft im Sommersitz seines Vaters Walker’s Point bei Kennebunkport in Maine auf, wo ebenfalls Staatsgäste empfangen wurden."
+            ]
+        },
+        {
+            "name": "Wehrdienst in der Nationalgarde und Unternehmertätigkeit",
+            "images": [
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/b/bb/GW-Bush-in-uniform.jpg/170px-GW-Bush-in-uniform.jpg"
+                }
+            ],
+            "text": [
+                "für Busch), später in Bush Exploration umbenannt.",
+                "fusionieren.",
+                "Als im Jahr 1986 die Ölpreise erneut einbrachen, wurde es zahlungsunfähig und von Harken Energy Corp.",
+                "aufgekauft.",
+                "Bush wurde dadurch einer der Direktoren bei Harken."
+            ]
+        },
+        {
+            "name": "Politische Karriere",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Anfänge",
+            "images": [],
+            "text": [
+                "1978 kandidierte Bush mit 31 Jahren für das Repräsentantenhaus der Vereinigten Staaten im 19.",
+                "Kongresswahlbezirk von Texas, der sich im Westen des Bundesstaates zwischen Lubbock und seiner Heimatstadt Midland erstreckte.",
+                "Er verlor die Wahl mit 46,8 % gegen den Demokraten Kent Hance.",
+                "Zwei Jahre später wurde sein Vater Vizepräsident; George W. Bush entschied, so lange nicht für ein politisches Amt zu kandidieren, wie sein Vater öffentliche Ämter bekleiden würde.",
+                "1988 war Bush Mitglied im Wahlkampfteam seines Vaters bei dessen schließlich erfolgreicher Präsidentschaftswahl und diente dort als Verbindungsmann zu den christlichen Konservativen."
+            ]
+        },
+        {
+            "name": "Gouverneur von Texas",
+            "images": [],
+            "text": [
+                "Als Gouverneur verfolgte Bush bei der Todesstrafe eine stramm konservative Linie: 152 zum Tode Verurteilte wurden während seiner sechsjährigen Amtszeit hingerichtet und nur eine Begnadigung ausgesprochen.",
+                "Im Falle eines kanadischen Staatsbürgers und einer im Gefängnis zum Christentum konvertierten Todeskandidatin gab es größere Proteste, jedoch hielt er an der Durchführung der Exekution fest.",
+                "Auch die Hinrichtung von Gary Lee Graham im Juni 2000 löste internationalen Widerspruch aus."
+            ]
+        },
+        {
+            "name": "US-Präsidentschaftswahlkampf 2000",
+            "images": [],
+            "text": [
+                "Bush erhielt USA-weit zwar etwa 500.000 Wählerstimmen weniger als Gore, konnte aber mit der Entscheidung des Supreme Courts bzw. den hinzugerechneten Wahlmännern Floridas insgesamt mehr Wahlmännerstimmen auf sich vereinigen."
+            ]
+        },
+        {
+            "name": "Erste Amtszeit als US-Präsident",
+            "images": [
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Bush_and_Schr%C3%B6der.jpg/220px-Bush_and_Schr%C3%B6der.jpg"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/4/46/FEMA_-_3905_-_Photograph_by_SFC_Thomas_R._Roberts_taken_on_09-14-2001_in_New_York.jpg/220px-FEMA_-_3905_-_Photograph_by_SFC_Thomas_R._Roberts_taken_on_09-14-2001_in_New_York.jpg"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Bush_at_Mount_Rushmore.jpg/220px-Bush_at_Mount_Rushmore.jpg"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/5/56/Bush_War_Budget_2003.jpg/220px-Bush_War_Budget_2003.jpg"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/7/7b/George_W._Bush_walks_with_Ryan_Phillips_to_Navy_One.jpg/220px-George_W._Bush_walks_with_Ryan_Phillips_to_Navy_One.jpg"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Bush_cropped.jpg/220px-Bush_cropped.jpg"
+                }
+            ],
+            "text": [
+                "Im Januar 2004 kündigte Präsident Bush an, der Weltraumbehörde NASA Mittel für eine bemannte Station auf dem Mond zur Verfügung zu stellen, die als Bahnhof und Testlabor für spätere Flüge zum Mars dienen soll."
+            ]
+        },
+        {
+            "name": "Zweite Amtszeit als Präsident",
+            "images": [
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/MerkelBushWashington1.jpg/220px-MerkelBushWashington1.jpg"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/f/fc/George_W._and_Laura_Bush_%2B_Gordon_and_Sarah_Brown_2008.jpg/220px-George_W._and_Laura_Bush_%2B_Gordon_and_Sarah_Brown_2008.jpg"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/0/01/Dmitry_Medvedev_at_the_34th_G8_Summit_7-9_July_2008-43.jpg/220px-Dmitry_Medvedev_at_the_34th_G8_Summit_7-9_July_2008-43.jpg"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Bush_addresses_media_on_Israel-Lebanon_w_Cheney_Aug_14_2006.jpg/220px-Bush_addresses_media_on_Israel-Lebanon_w_Cheney_Aug_14_2006.jpg"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vladimir_Putin_and_George_W._Bush.jpg/220px-Vladimir_Putin_and_George_W._Bush.jpg"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Gohomebush.JPG/220px-Gohomebush.JPG"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Former_President_George_W._Bush_and_his_wife_before_their_flight_to_Dallas.jpg/220px-Former_President_George_W._Bush_and_his_wife_before_their_flight_to_Dallas.jpg"
+                }
+            ],
+            "text": [
+                "Der Politikwissenschaftler Michael Haas kommt in seinem 2009 erschienenen Werk George W. Bush, War Criminal?",
+                ": The Bush Administration’s Liability for 269 War Crimes zu dem Schluss, dass es schlüssige Gründe dafür gäbe, die Bush-Administration wegen Kriegsverbrechen rechtlich zu belangen.",
+                "Er führt in diesem Zusammenhang 269 konkrete Regierungsmaßnahmen an, deren Rechtmäßigkeit er bezweifelt."
+            ]
+        },
+        {
+            "name": "Nach der Präsidentschaft",
+            "images": [
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Four_U.S._presidents_in_2013.jpg/220px-Four_U.S._presidents_in_2013.jpg"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/b/b5/190911-A-AP390-2119_%2848723527371%29.jpg/220px-190911-A-AP390-2119_%2848723527371%29.jpg"
+                }
+            ],
+            "text": [
+                "Im Februar 2017 erschienen von ihm Ölbilder und Geschichten von amerikanischen Kriegsveteranen in seinem Buch Portraits of Courage.",
+                "A Commander in Chief’s Tribute to America’s Warriors.",
+                "Im März 2021 veröffentlichte er ein weiteres Buch mit Ölbildern und Geschichten: Out of Many, One: Portraits of America's Immigrants."
+            ]
+        },
+        {
+            "name": "Ziele seiner Präsidentschaft",
+            "images": [],
+            "text": [
+                "Das vierte und am schwersten zu erreichende Ziel war, eine exekutive und legislative Parteienmacht herzustellen, wie dies zuletzt den Demokraten nach der Präsidentschaftswahl in den Vereinigten Staaten 1932 gelungen war.",
+                "Dazu wurden einerseits dezidiert konservative Positionen eingenommen, um mit der höheren Mobilisierbarkeit dieser Klientel in polarisierenden Fragen knappe Mehrheiten gewinnen zu können, andererseits konnten mit den Reaktionen auf 9-11 oder Initiativen wie dem No Child Left Behind Act breite politische Mehrheiten im Sinne des compassionate conservatism gewonnen werden."
+            ]
+        },
+        {
+            "name": "Filme",
+            "images": [],
+            "text": [
+                "2008 erschien mit George Walker Bush in „Being W.“ zudem ein satirischer Dokumentarfilm."
+            ]
+        },
+        {
+            "name": "Bücher",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Hörbücher",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Literatur",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Weblinks",
+            "images": [
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/12px-Commons-logo.svg.png"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/13px-Wikiquote-logo.svg.png"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/15px-Wikisource-logo.svg.png"
+                }
+            ],
+            "text": ""
+        },
+        {
+            "name": "Einzelnachweise",
+            "images": [
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/75px-Seal_of_the_President_of_the_United_States.svg.png"
+                },
+                {
+                    "url": "//upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Seal_of_the_Governor_of_Texas.svg/75px-Seal_of_the_Governor_of_Texas.svg.png"
+                },
+                {
+                    "url": "//de.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1"
+                }
+            ],
+            "text": [
+                "Bundesstaat Texas: J. P. Henderson | Wood | Bell | J. W. Henderson | Pease | Runnels | Houston | Clark | Lubbock | Murrah | Stockdale | Hamilton | Throckmorton | Pease | Davis | Coke | Hubbard | Roberts | Ireland | Ross | Hogg | Culberson | Sayers | Lanham | Campbell | Colquitt | J. Ferguson | Hobby | Neff | M. Ferguson | Moody | Sterling | M. Ferguson | Allred | O’Daniel | Stevenson | Jester | Shivers | Daniel | Connally | Smith | Briscoe | Clements | White | Clements | Richards | Bush | Perry | Abbott"
+            ]
+        },
+        {
+            "name": "Navigationsmenü",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Meine Werkzeuge",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Namensräume",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Ansichten",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Suche",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Navigation",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Mitmachen",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Werkzeuge",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "Drucken/​exportieren",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "In anderen Projekten",
+            "images": [],
+            "text": ""
+        },
+        {
+            "name": "In anderen Sprachen",
+            "images": [
+                {
+                    "url": "/static/images/footer/poweredby_mediawiki_88x31.png"
+                }
+            ],
+            "text": ""
+        }
     ]
 }

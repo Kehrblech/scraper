@@ -98,3 +98,5 @@ def all_info(soup):
     print("Done")
     
 
+
+

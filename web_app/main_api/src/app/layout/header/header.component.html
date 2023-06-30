@@ -1,8 +1,8 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+  <button mat-icon-button (click)="openDrawer()" aria-label="Example icon-button with a menu">
     <mat-icon>menu</mat-icon>
   </button>
-  <mat-menu #menu="matMenu" class="matMenu">
+  <!-- <mat-menu #menu="matMenu" class="matMenu">
     <button mat-menu-item>
       <mat-icon>gamepad</mat-icon>
       <a href="button">Button</a>
@@ -19,9 +19,10 @@
       <mat-icon>outbox</mat-icon>
       <a href="dialog">Dialog</a>
     </button>
+    </mat-menu>-->
 
-  </mat-menu>
-   <span>Scraper</span>
+
+   <span>Präsentify</span>
    <span class="example-spacer"></span>
    <a mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" href="https://rwu.de" target="_blank">
      <mat-icon>favorite</mat-icon>

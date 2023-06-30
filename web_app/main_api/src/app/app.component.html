@@ -1,9 +1,11 @@
-<app-header></app-header>
+
+<app-header (openDrawerEvent)="toggleDrawer()"></app-header>
 <mat-drawer-container class="app-container">
-  <mat-drawer mode="side" opened>
+  <mat-drawer mode="side" [opened]="isDrawerOpened">
     <app-sidebar></app-sidebar>
   </mat-drawer>
   <mat-drawer-content>
     <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
+

@@ -1,0 +1,27 @@
+.card-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.col text-content {
+  flex: 1;
+  order: 2;
+}
+
+.col slide-img {
+  flex: 1;
+  order: 1;
+}
+
+.img-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  margin: 0.22rem;
+  padding: 0.22rem;
+}
+
+#img-card{
+  display: flex;
+  flex-direction: column;
+}

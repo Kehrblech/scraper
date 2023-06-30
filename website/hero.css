@@ -1,0 +1,146 @@
+/* #hero {
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+#hero-left {
+    flex: 1;
+    margin-left: 20rem;
+}
+
+#hero-left button {
+    color: #D279EE;
+    font-weight: bolder;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition-duration: 0.4s;
+}
+
+#hero-left button:hover {
+    color: white;
+    font-weight: bolder;
+    padding: 1rem;
+    background: #D279EE(239, 139, 92, 0.7);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#hero-right {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#hero-right img {
+    
+    z-index: 1;
+}
+ */
+#hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    padding: 0 20px;
+}
+
+#hero h2 {
+    font-size: 66px;
+    color: white;
+    font-weight: bold;
+}
+
+#hero-left {
+    
+    flex: 1;
+    padding-left: 2rem;
+    z-index: 100;
+}
+
+
+
+
+#hero-left button {
+    color: #D279EE;
+    font-weight: bolder;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(210, 121, 238, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition-duration: 0.4s;
+}
+
+#hero-left button:hover {
+    color: white;
+    font-weight: bolder;
+    padding: 1rem;
+    background: #D279EE;
+    box-shadow: 0 8px 32px 0 rgba(210, 121, 238, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#hero-right {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+#hero-right img {
+    height: 99%;
+    xanimation: rotateAnimation 18.8s linear infinite;
+}
+
+@media only screen and (max-width: 600px) {
+    .navbar-brand {
+        padding-left: 2.3rem;
+        padding-bottom: 0.66rem;
+    }
+
+    #hero-left {
+        padding-top: 5.3rem;
+        padding-right: 1rem;
+        padding-left: 0.6rem;
+        z-index: 100;
+    }
+
+    #hero-right {
+        padding-left: 10.2rem;
+        margin-top: -5.2rem;
+        z-index: 1;
+    }
+
+    
+}
+
+@keyframes rotateAnimation {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
+  }

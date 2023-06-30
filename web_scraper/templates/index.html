@@ -1,0 +1,125 @@
+<!--          __    _  _
+      _______/  |_  ____
+     /  ___/\   __\/  _ \
+     \___ \  |  | (  <_> )
+ /\ /____  > |__|  \____/ v.01
+ \/      \/  julian@stoecklin.de  -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Python Web Scraper API</title>
+
+  <!-- Bootstrap CSS -->
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/hero.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/wave.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/typewriter.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/apple-card.css') }}">
+
+
+  <!-- Description -->
+  <meta name="description"
+    content="ScrAPI is a powerful Python Web Scraper API that simplifies web scraping. Effortlessly gather valuable data from websites with ease and efficiency">
+  <meta name="keywords" content="Web Scraping API, Scraper API, API, Scraper, Webscraper">
+
+</head>
+
+<body>
+  <script src="../website/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
+  <div class="ocean">
+    <div class="wave"></div>
+    <div class="wave"></div>
+  </div>
+  <div class="container">
+    <div id="header">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Scr<span style="color: #F8C390;">API</span></a>
+          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">🦴</span>
+          </button>
+          <div class="navbar-collapse justify-content-end collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <a class="nav-link" href="#">Log in</a>
+              <a class="nav-link" href="/api/docs">Docs</a>
+              <a class="nav-link" href="#">GIT</a>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div id="hero" class="row">
+      <div class="col-md-6 col-sm-12" id="hero-left">
+        <h2>Scr<span style="color: #D279EE;">API</span></h2>
+        <h3>Web Scraping is Complex. We Make it Simple.<br>Sniff, Fetch and Retrieve.</h3>
+        <button onclick="window.location.href = '#documentation';">LET'S GO</button>
+      </div>
+      <div class="col-md-4 col-sm-12" id="hero-right">
+        <img class="" id="logo" src="assets/scrapi_logo.png" alt="ScrAPI the Doge">
+      </div>
+    </div>
+
+
+
+    <div id="show-card" class="show-code d-flex justify-content-center align-items-center g-2">
+      <div class="card">
+        <div class="row g-2">
+          <div class="dots"></div>
+          <div class="dots"></div>
+          <div class="dots"></div>
+        </div>
+        <div class="card-body">
+          <div class="typewriter">
+            <h4> <span style="color: blue;">$ </span><span style="color: lightblue;">curl</span>
+              "http://scrapi.de/api/soup/url=https://www.rwu.de"</h4>
+          </div>
+          <br>
+          <div class="card-delay">
+            <h5>
+              <pre>&lt;!DOCTYPE html&gt; <br>&nbsp;&nbsp;  &lt;html lang="de"&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp; &lt;head&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;meta charset="utf-8"&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...</pre>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="show-more" class="row d-flex justify-content-center text-center">
+      <div class="col-md-4">
+        <img src="assets/ninja.png" alt="Fast Ninja is Reliable">
+        <h2>Fast and Reliable</h2>
+        <h6>Like a good dog, the Scraper API delivers fast and reliable.</h6>
+      </div>
+      <div class="col-md-4">
+        <img src="assets/crane.png" alt="Crane eat one or many fish">
+        <h2>Built for Scale</h2>
+        <h6>Scrape One to 100 Websites, ScrAPI can give you the scale you need.</h6>
+      </div>
+      <div class="col-md-4">
+        <img src="assets/tree.png" alt="Structured like a Tree">
+        <h2>Structured Data</h2>
+        <h6>Our Structured Data endpoints helps you gather structured JSON data from the biggest domains on the web.
+        </h6>
+      </div>
+    </div>
+
+  </div>
+  <div id="footer" class="row text-center">
+    <a href="#" style="font-weight: bold;">Scr<span style="color: #F8C390;">API</span></a>
+    <a href="https://rwu.de">©2023 RWU. All rights reserved.</a>
+    <a>Built with ❤, ☕ and lots of 🍪 at the Lake of Constance, DE</a>
+  </div>
+
+</body>
+
+</html>
