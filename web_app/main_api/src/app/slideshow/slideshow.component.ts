@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api-service/api-service.component';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 interface SlideContent {
   type: string;
   value: string;
@@ -10,7 +10,6 @@ interface SlideContent {
 
 interface Slide {
   mainTitle: string;
-  title: string;
   text: SlideContent[];
 }
 
@@ -44,81 +43,10 @@ export class SlideShowComponent implements OnInit {
 
 
 
-  // fetchData(url: string) {
-  //   this.isLoading = true;
-  //   this.apiService.getData(url).subscribe((data: any) => {
-  //     console.log(data); // Überprüfen Sie die empfangenen Daten
-
-  //     this.slides = [];
-
-  //     for (const key in data) {
-  //       if (data.hasOwnProperty(key)) {
-  //         const section = data[key];
-  //         const mainTitle = key;
-  //         for (const subsectionKey in section) {
-  //           if (section.hasOwnProperty(subsectionKey)) {
-  //             if (subsectionKey === 'Inhaltsverzeichnis') {
-  //               continue;
-  //             }
-
-  //             if (subsectionKey === 'Weblinks' || subsectionKey === 'Einzelnachweise') {
-  //               continue;
-  //             }
-
-  //             const subsection = section[subsectionKey];
-  //             const title = subsectionKey;
-  //             const text: SlideContent[] = [];
-
-  //             const subsubsectionKeys = Object.keys(subsection);
-  //             if (subsubsectionKeys.length > 0) {
-  //               const subsubsectionTitle = subsubsectionKeys[0];
-  //               const subsubsectionTextArray = Array.isArray(subsection[subsubsectionTitle]) ? subsection[subsubsectionTitle] : [subsection[subsubsectionTitle]];
-  //               const subsubsectionText = subsubsectionTextArray.map((value: string) => {
-  //                 if (typeof value === 'string' && (value.startsWith('//') || value.startsWith('http://') || value.startsWith('https://'))) {
-  //                   return { type: 'image', value, imageUrl: value };
-  //                 } else {
-  //                   return { type: 'text', value };
-  //                 }
-  //               });
-
-  //               text.push({ type: 'subtitle', value: subsubsectionTitle });
-  //               text.push(...subsubsectionText);
-  //             }
-
-  //             for (const contentKey in subsection) {
-  //               if (subsection.hasOwnProperty(contentKey)) {
-  //                 if (contentKey === subsubsectionKeys[0]) {
-  //                   continue;
-  //                 }
-
-  //                 const contentArray = Array.isArray(subsection[contentKey]) ? subsection[contentKey] : [subsection[contentKey]];
-  //                 const content = contentArray.map((value: string) => {
-  //                   if (typeof value === 'string' && (value.startsWith('//') || value.startsWith('http://') || value.startsWith('https://'))) {
-  //                     return { type: 'image', value, imageUrl: value };
-  //                   } else {
-  //                     return { type: 'text', value };
-  //                   }
-  //                 });
-
-  //                 text.push({ type: 'subtitle', value: contentKey });
-  //                 text.push(...content);
-  //               }
-  //             }
-
-  //             this.slides.push({ mainTitle, title, text });
-  //           }
-  //         }
-  //       }
-  //     }
-
-  //     this.isLoading = false;
-  //   });
-  // }
-
   fetchData(url: string) {
     this.isLoading = true;
     this.apiService.getData(url).subscribe((data: any) => {
-      console.log(data); // Verify the received data
+      console.log(data);
 
       this.slides = this.convertJsonToSlides(data);
       this.isLoading = false;
@@ -131,7 +59,6 @@ export class SlideShowComponent implements OnInit {
     for (const slideData of data.slides) {
       const slide: Slide = {
         mainTitle: slideData.name,
-        title: '',
         text: []
       };
 

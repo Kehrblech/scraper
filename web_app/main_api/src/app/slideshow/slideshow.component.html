@@ -31,6 +31,9 @@
 </div>
 
 <div class="slideshow-container" [ngClass]="{'fullscreen': isFullscreen}">
+  <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
   <app-slide *ngFor="let slide of slides; let i = index" [slideData]="slide"
     [hidden]="currentSlideIndex !== i"></app-slide>
 </div>

@@ -4,6 +4,7 @@ import { SlideShowComponent } from './slideshow/slideshow.component';
 import { StartPageComponent } from './start-page/start-page.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'home', pathMatch: 'full' },
   {path:'home', component: StartPageComponent},
   {path:'slideshow', component: SlideShowComponent},
 ];

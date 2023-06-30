@@ -3,17 +3,17 @@
     <div class="col d-flex justify-content-center align-items-center" id="hero-text">
       <h1 class="text-center">Präsentify</h1>
       <h2>Unlock Your Presentation Ideas with Präsentify</h2>
-      <button mat-raised-button color="primary">Start Präsenting</button>
+      <button mat-raised-button color="primary" (click)="focusSearchInput()">Start Präsenting</button>
     </div>
     <div class="col">
-      <img src="../../assets/robot.gif" alt="">
+      <img src="../../assets/praesentify_logo.png" alt="">
     </div>
   </div>
   <div class="row justify-content-center align-items-center g-2" id="search">
     <mat-form-field class="example-full-width">
       <mat-label>Präsentationsthema</mat-label>
-      <input matInput placeholder="Bsp. Geschichte von Rom" [(ngModel)]="searchPhrase" (keyup.enter)="fetchSlides()">
+      <input #searchInput matInput placeholder="Bsp. Geschichte von Rom" [(ngModel)]="searchPhrase" (keyup.enter)="fetchSlides()" class="input-button-container">
+      <button mat-raised-button matSuffix  (click)="fetchSlides();">Generate Ideas 💡</button>
     </mat-form-field>
-    <button mat-raised-button color="basic" (click)="fetchSlides()">Generate Ideas 💡</button>
   </div>
 </div>

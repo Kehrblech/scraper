@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api-service/api-service.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-start-page',
@@ -11,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class StartPageComponent implements OnInit {
   searchPhrase: string = '';
   isEntrySuccessful: boolean = false;
+  @ViewChild("searchInput") searchInput!: ElementRef<HTMLInputElement>;
   @Output() entrySuccessful: EventEmitter<boolean> = new EventEmitter<boolean>();
   constructor(
     private router: Router,
@@ -19,6 +21,11 @@ export class StartPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {}
+
+  focusSearchInput(){
+    this.searchInput.nativeElement.focus();
+  }
+
 
   fetchSlides() {
     this.apiService.getUrl(this.searchPhrase).subscribe(

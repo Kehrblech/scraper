@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-
+import { Clipboard } from '@angular/cdk/clipboard';
+import { MatSnackBar } from '@angular/material/snack-bar';
 interface SlideContent {
   type: string;
   value: string;
@@ -15,6 +16,7 @@ export class SlideComponent {
   @Input() slideData: any;
   isFirstImage: boolean = true;
   currentIndex = 0;
+  constructor(private clipboard: Clipboard, private snackBar: MatSnackBar) { }
 
 
   splitTextSentences(text: string): string[] {
@@ -52,6 +54,27 @@ export class SlideComponent {
   // In der zugehörigen Komponentenklasse
   getNumberOfImages(): number {
     return this.slideData.text.filter((content: any) => content.type === 'image').length;
+  }
+
+  copySlideToClipboard(slideData: any) {
+    const currentSlide = JSON.stringify(slideData, null, 2);
+    this.clipboard.copy(currentSlide);
+    this.snackBar.open('Slide copied to clipboard!', 'OK', {
+      duration: 2000,
+    });
+  }
+
+  getSlideText(slide: any): string {
+    if (slide && slide.mainTitle && slide.title && slide.text) {
+      const mainTitle = slide.mainTitle;
+      const title = slide.title;
+      const textContent = slide.text.map((content: any) => content.value).join('\n');
+
+      return `Main Title: ${mainTitle}\nTitle: ${title}\nContent: ${textContent}`;
+    } else {
+      // Handle den Fall, wenn das slide-Objekt nicht die erwarteten Eigenschaften enthält
+      return '';
+    }
   }
 
 }
