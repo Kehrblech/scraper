@@ -1,0 +1,66 @@
+.card {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    margin-bottom: 3rem;
+
+}
+
+.card  input{
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    
+}
+
+.card button {
+    color: #D279EE;
+    font-weight: bolder;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(210, 121, 238, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition-duration: 0.4s;
+}
+
+.card button:hover,
+.card button:active,
+.card button:focus {
+    color: white;
+    font-weight: bolder;
+    padding: 1rem;
+    background: #D279EE;
+    box-shadow: 0 8px 32px 0 rgba(210, 121, 238, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* CSS-Klasse für die Schüttelanimation */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  
+  /* CSS-Klasse für die rote Karte */
+  .red-card {
+    background-color: red;
+    animation: shake 0.8s forwards;
+  }
+  
+  .oki{
+
+  }

@@ -30,8 +30,14 @@ h6 {
     color: white;
 }
 
-
-
+#login {
+    height: 90vh;
+}
+.swagger-ui .topbar {
+    background-color: #333;
+    color: #fff;
+    display: none;
+}
 
 .container {
     -ms-overflow-style: none;

@@ -36,13 +36,14 @@ swaggerui_blueprint = get_swaggerui_blueprint(
         'app_name': "ScrAPI"
     }
 )
-
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 @app.route('/')
 def index():
     return render_template('index.html')
-
+@app.route('/login')
+def login():
+    return render_template('login.html')
  
 api = Api(app)
 CORS(app)

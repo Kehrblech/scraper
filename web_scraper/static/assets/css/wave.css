@@ -12,7 +12,7 @@ body {
 }
 
 .wave {
-  background: url(../website/assets/wave.svg) repeat-x;
+  background: url(/static/assets/img/wave.svg) repeat-x;
   position: absolute;
   width: 6400px;
   height: 198px;

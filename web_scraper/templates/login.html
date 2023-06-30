@@ -1,0 +1,167 @@
+<!--          __    _  _
+      _______/  |_  ____
+     /  ___/\   __\/  _ \
+     \___ \  |  | (  <_> )
+ /\ /____  > |__|  \____/ v.01
+ \/      \/  julian@stoecklin.de  -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Python Web Scraper API</title>
+
+    <!-- Bootstrap CSS -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/hero.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/wave.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/typewriter.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/apple-card.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/login.css') }}"
+    />
+
+    <!-- Description -->
+    <meta
+      name="description"
+      content="ScrAPI is a powerful Python Web Scraper API that simplifies web scraping. Effortlessly gather valuable data from websites with ease and efficiency"
+    />
+    <meta
+      name="keywords"
+      content="Web Scraping API, Scraper API, API, Scraper, Webscraper"
+    />
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function changeCardColor() {
+          var card = document.getElementById('animation');
+          card.classList.replace('oki','red-card');
+        }
+      </script>
+  </head>
+
+  <body>
+    <div class="ocean">
+      <div class="wave"></div>
+      <div class="wave"></div>
+    </div>
+    <div class="container">
+      <div id="header">
+        <nav class="navbar navbar-expand-lg">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/"
+              >Scr<span style="color: #f8c390">API</span></a
+            >
+            <button
+              class="navbar-toggler collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon">🦴</span>
+            </button>
+            <div
+              class="navbar-collapse justify-content-end collapse"
+              id="navbarNav"
+            >
+              <ul class="navbar-nav">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/api/docs">Docs</a>
+                <a class="nav-link" href="https://github.com">GIT</a>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div id="login align-content-center" style="padding-top: 10rem">
+        <div
+          class="row justify-content-center align-content-center text-center"
+        >
+          <div class="col-md-6">
+            <div class="card oki" id="animation">
+              <div class="row g-2">
+                <div class="dots"></div>
+                <div class="dots"></div>
+                <div class="dots"></div>
+              </div>
+              <img
+                class="rounded mx-auto d-block"
+                style="width: 33%; justify-items: center"
+                src="{{ url_for('static', filename='assets/img/scrapi_logo.png') }}"
+              />
+              <div class="card-body">
+                <form>
+                  <div class="mb-3">
+                    <label for="username" class="form-label text-white"
+                      >Username</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="username"
+                      placeholder="Enter your username"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label text-white"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      placeholder="Enter your password"
+                    />
+                  </div>
+                  <div class="d-grid">
+                    <button id="login_btn" onclick="changeCardColor()"  class="">
+                      Login
+                    </button>
+                  </div>
+                  <span class="text-white">Not Registered Yet?</span>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer" class="row text-center">
+      <a href="#" style="font-weight: bold"
+        >Scr<span style="color: #f8c390">API</span></a
+      >
+      <a href="https://rwu.de">©2023 RWU. All rights reserved.</a>
+      <a>Built with ❤, ☕ and many 🍦 at Lake Constance, DE</a>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
