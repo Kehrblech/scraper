@@ -88,6 +88,10 @@ def find_phone(element,phonenumbers):
     if element.has_attr('class'):
         if any(kw in (element['class'] or element.text.lower()) for kw in phone_keyword.split("|")): 
             phonenumbers.append(element.text)    
+    if element.has_attr('a'):
+        if any(kw in (element['a'] or element.text.lower()) for kw in phone_keyword.split("|")): 
+            phonenumbers.append(element.text)   
+        
               
         if element.has_attr('class') and element.has_attr('href'):
             if any(kw in (element['class'] or element.text.lower() or element['href'] ) for kw in phone_keyword.split("|")): 

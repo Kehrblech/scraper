@@ -1,193 +1,358 @@
-openapi: '3.0.2'
+openapi: "3.0.2"
 info:
-  title: Scraper API 
-  version: '0.1'
+  title: Scraper API
+  version: "0.1"
 servers:
   - url: http://localhost:5000/
 paths:
-  /soup:
+  /soup/:
     get:
       tags:
-        - Scrape HTML content
-      summary: Parse a URL, get the whole HTML content 
-      description: When passing a WebUrl address, the content can be analysed with different language models. It is possible to display a ranking of the words according to the LDA algorithm, to generate bullet points or to summarise texts. In addition, the number of desired hits can be transferred. 
+        - "Web scraping"
+      summary: "Retrieve HTML content of a web page"
+      description: "Retrieves the HTML content of the specified web page."
       parameters:
-        - name: url
-          in: query
+        - name: "url"
+          in: "query"
           required: true
           schema:
-            type: string
+            type: "string"
+        - name: "clean"
+          in: "query"
+          required: false
+          schema:
+            type: "boolean"
       responses:
-        '200':
-          description: OK
-  /table:
+        "200":
+          description: "OK"
+        "404":
+          description: "Missing URL. Try /soup?url=www.the-website-you-want-to-scrape.com. Specify the 'clean' parameter as 'true' to get clean HTML content."
+  /table/:
     get:
       tags:
         - Scrape Table content
-      summary: Parse a URL, get all Table content 
-      description: When passing a WebUrl address, the script trys to find Table content and scrapes it. 
-      parameters:
-          - name: url
-            in: path
-            required: true
-            schema:
-              type: string
-      responses:
-        '200':
-          description: OK
-  /toc/{url}:
-    get:
-      tags:
-        - Scrape Table of Content from a Wiki site
-      summary: Parse a Wiki URL, get the Table of Content from a Wiki site. 
-      description: When passing a WebUrl address, that belongs to a Wiki site, the Table of Content can be retrieved. 
+      summary: Parse a URL, get all Table content
+      description: |
+        When passing a WebUrl address, the script tries to find Table content and scrapes it.
       parameters:
         - name: url
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-        '404':
-          description: /toc/www.the-website-you-want-to-scrape.com
-  /link/{url}:
-    get:
-      tags:
-        - Scrape Hyperlinks
-      summary: Parse a URL, get all hyperlinks from a Website
-      description: When passing a WebUrl address, all the hyperlinks are stored in a json file. 
-      parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-        '404':
-          description: /link/www.the-website-you-want-to-scrape.com
-  /contact/{argument}/{url}:
-    get:
-      tags:
-        - Scrape contact information
-      summary: Parse a URL, retrieve all Contact data from a Website
-      description: When passing a WebUrl address, the script trys to find all contanct information. There are diffrent Methods to Choose from. 
-      parameters:
-        - name: argument
-          in: path
-          required: true
-          schema:
-            type: string
-            enum: [find, text, url]
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-        '404':
-          description: Argument invalid try /contact/find/www.the-website-you-want-to-scrape.com. Use following arguments find | text | url
-  /contact/:
-    post:
-      tags:
-        - Scrape contact information
-      summary: Parse multiple URLs, retrieve contact data from each website
-      description: Pass a list of URLs in JSON format to scrape contact information from multiple websites.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                keyword:
-                  type: string
-                  example: Bachelor
-                urls:
-                  type: array
-                  items:
-                    type: string
-              example: 
-                keyword: Bachelor
-                urls: 
-                  - "https://rwu.de"
-                  - "https://www.uni-konstanz.de/"
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Wrong Input! need a JSON format!
-  /analysis/{analysis_type}/{url}:
-    get:
-      tags:
-        - Text analysis and categorization
-      summary: Analyze and parse a website 
-      description: When passing a WebUrl address, the content can be analysed with different language models. It is possible to display a ranking of the words according to the LDA algorithm, to generate bullet points or to summarise texts. In addition, the number of desired hits can be transferred. 
-      parameters:
-        - name: analysis_type
-          in: path
-          required: true
-          schema:
-            type: string
-            enum: [ranking, lex, lsa, luhn]
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: num_results
           in: query
+          required: true
+          schema:
+            type: string
+          description: The URL of the website to parse.
+          example: https://de.wikipedia.org/wiki/Liste_von_Linux-Distributionen
+      responses:
+        "200":
+          description: OK
+  /toc/:
+    get:
+      tags:
+        - "Scrape Wiki"
+      summary: "Parse a Wiki URL, get the Table of Content from a Wiki site."
+      description: "When passing a WebUrl address that belongs to a Wiki site, the Table of Content can be retrieved."
+      parameters:
+        - name: "url"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "/toc/?url=www.the-website-you-want-to-scrape.com"
+  /link/:
+    get:
+      tags:
+        - "Scrape Hyperlinks"
+      summary: "Parse a URL, get all hyperlinks from a Website"
+      description: "When passing a WebUrl address, all the hyperlinks are stored in a json file. You can filter for http https www. links. Or even if the contain a phrase inside the Link."
+      parameters:
+        - name: "url"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "filter"
+          in: "query"
           required: false
           schema:
-            type: integer
+            type: "string"
+        - name: "contains"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
       responses:
-        '200':
-          description: OK
-  /analysis:
+        "200":
+          description: "OK"
+        "404":
+          description: "/link/?url=www.the-website-you-want-to-scrape.com"
+  /contact/":
+    get:
+      tags:
+        - "Scrape contact information"
+      summary: "Parse a URL, retrieve all Contact data from a Website"
+      description: "When passing a WebUrl address, the script tries to find all contact information. There are different Methods to Choose from."
+      parameters:
+        - name: "url"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "Missing URL! Try /contact?url=www.the-website-you-want-to-scrape.com"
     post:
       tags:
-        - Text analysis and categorization
-      summary: Analyze and parse an array of urls with a given keyword.
-      description: Searches for a given keyword and returns elements in which it is found, as well as metrics for the whole page with exact and close hits. (Synonym searches are not yet included). 
+        - "Scrape contact information"
+      summary: "Parse multiple URLs, retrieve contact data from each website"
+      description: "Pass a list of URLs in JSON format to scrape contact information from multiple websites."
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                keyword:
-                  type: string
-                  example: Bachelor
-                urls:
-                  type: array
-                  items:
-                    type: string
-                  example: ["https://rwu.de", "https://www.uni-konstanz.de/"]
+              type: "array"
+              items:
+                type: "string"
       responses:
-        '200':
-          description: OK
+        "200":
+          description: "OK"
           content:
             application/json:
               schema:
-                type: array
+                type: "array"
                 items:
-                  type: object
+                  type: "object"
                   properties:
                     url:
-                      type: string
-                    metrics:
-                      type: object
-                    data:
-                      type: array
-                      items:
-                        type: object
-        '400':
-          description: Bad Request
-  
+                      type: "string"
+                    contact:
+                      type: "object"
+                  example:
+                    - url: "https://rwu.de"
+                      contact:
+                        phone: "+49 123456789"
+                        email: "info@rwu.de"
+                    - url: "https://www.uni-konstanz.de/"
+                      contact:
+                        phone: "+49 987654321"
+                        email: "info@uni-konstanz.de"
+        "400":
+          description: "Wrong Input! need a JSON format!"
+  /image/":
+    get:
+      tags:
+        - "Scrape Wiki"
+      summary: "Parse a Wiki URL, get all images from a Wiki site"
+      description: "When passing a WebUrl address that belongs to a Wiki site, all images from the site can be retrieved."
+      parameters:
+        - name: "url"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "Missing URL! Try /image?url=www.the-website-you-want-to-scrape.com"
+  /text/":
+    get:
+      tags:
+        - "Scrape text content"
+      summary: "Parse a URL, get the text content"
+      description: "When passing a WebUrl address, the text content can be retrieved. Optionally, the text can be cleaned from newline characters."
+      parameters:
+        - name: "url"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "clean"
+          in: "query"
+          required: false
+          schema:
+            type: "boolean"
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "Missing URL! Try /text?url=www.the-website-you-want-to-scrape.com. Use the 'clean' parameter with a value of 'true' to remove newline characters."
+  /auto/":
+    get:
+      tags:
+        - "Scrape Wiki"
+      summary: "Automated scraping of Wiki content"
+      description: "Perform automated scraping of web content based on the specified type. Supported types are 'all', 'each', and 'slide'."
+      parameters:
+        - name: "type"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            enum: [all, each, slide]
+        - name: "url"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "Missing URL! Try /auto?url=www.the-website-you-want-to-scrape.com. Specify the 'type' parameter as 'all', 'each', or 'slide' to perform the desired scraping."
+  /keyword/:
+    get:
+      tags:
+        - "Automated scraping"
+      summary: "Searches for a keyword on the website"
+      description: "Performs a keyword search on the specified website and returns the text in which the keyword was found. Metrics can be displayed as well."
+      parameters:
+        - name: "url"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "keyword"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "metrics"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            enum: ["true", "false"]
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "Missing URL or keyword. Try /keyword?url=www.the-website-you-want-to-scrape.com&keyword=Studium&metrics=true. Specify the 'metrics' parameter as 'true' or 'false' to display or hide metrics."
 
+    post:
+      tags:
+        - "Automated scraping"
+      summary: "Perform keyword search on multiple websites"
+      description: "Performs a keyword search on multiple websites and returns the text in which the keyword was found. Metrics can be displayed as well."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                keyword:
+                  type: "string"
+                urls:
+                  type: "array"
+                  items:
+                    type: "string"
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Wrong input. Need a JSON format!"
+  /summarizer/:
+    get:
+      tags:
+        - "Text summarization"
+      summary: "Generate a summary of the text"
+      description: "Generates a summary of the provided text using the specified summarization algorithm."
+      parameters:
+        - name: "type"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+        - name: "text"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "num"
+          in: "query"
+          required: false
+          schema:
+            type: "integer"
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "Missing text. Try /summarizer?text=The text you want to summarize. Specify the 'type' parameter to choose the summarization algorithm. Specify the 'num' parameter to set the number of bullet points."
+  /findurl/:
+    get:
+      tags:
+        - "URL scraping"
+      summary: "Find URLs related to a specific topic"
+      description: "Searches for URLs related to the specified topic on Wikipedia."
+      parameters:
+        - name: "text"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "Missing text. Try /findurl?text=The topic you want to search for."
+  
+  /analysis/:
+    get:
+      tags:
+        - "Text analysis"
+      summary: "Perform text analysis on web content"
+      description: "Performs text analysis on the specified web content using the specified algorithm. Supported algorithms are 'lda', 'luhn', 'lsa', and 'lex'."
+      parameters:
+        - name: "url"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "algorithm"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+            enum: ["lda", "luhn", "lsa", "lex"]
+        - name: "results"
+          in: "query"
+          required: false
+          schema:
+            type: "integer"
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "Missing URL or algorithm. Try /analysis?url=www.the-website-you-want-to-scrape.com&algorithm=lda. Specify the 'results' parameter to limit the number of results."
+
+    post:
+      tags:
+        - "Text analysis"
+      summary: "Perform text analysis on multiple web content"
+      description: "Performs text analysis on the specified web content URLs using the specified algorithm. Supported algorithms are 'lda', 'luhn', 'lsa', and 'lex'."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                algorithm:
+                  type: "string"
+                  enum: ["lda", "luhn", "lsa", "lex"]
+                urls:
+                  type: "array"
+                  items:
+                    type: "string"
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Wrong input format"

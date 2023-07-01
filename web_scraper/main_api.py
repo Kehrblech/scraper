@@ -8,6 +8,10 @@ import scrape_each_dyn
 import scrape_contact
 import find_url
 from summarizer_algorithms import lda, luhn, lsa, lex_rank
+from logging_modul import logger
+
+import xmltojson
+import json
 
 from flasgger import Swagger
 
@@ -49,183 +53,95 @@ api = Api(app)
 CORS(app)
 swagger = Swagger(app)
 
-
+#Returns HTML Content
 class Soup(Resource):
 
     def get(self):
         url  = request.args.get('url')
-        if(url != None):
-            return scrape.get_soup(url), 200
+        clean = request.args.get('clean')
+        logger.log_to_file(url)
+        if(url != None and clean == None):
+            html_response = scrape.get_soup(url)
+            return html_response.prettify(),200
+        elif(url != None and clean != None):
+            html_response = scrape.get_soup(url)
+            result=(' '.join(str(html_response.prettify()).strip().replace('\n', '').replace('\r', ' ').split()))
+            return (result),200
         else:
-            return "Type in a url", 404
+            return "add key url and clean", 404
 
 api.add_resource(Soup, "/soup/")
 
+#Returns Tables if found
 class Table(Resource):
     
     def get(self):
         url  = request.args.get('url')
-        # """
-        # Get all tables from a website
-        # ---
-        # tags:
-        #   - Scrape Table content
-        # summary: Parse a URL, get the Table content from a Website 
-        # description: When passing a WebUrl address, the Table content can be retrieved. 
-        # parameters:
-        #   - name: url
-        #     in: path
-        #     required: true
-        #     schema:
-        #       type: string
-        # responses:
-        #   200:
-        #     description: OK
-        # """
-        print(url)
+        logger.log_to_file(url)
         if(url != None):
             return scrape.all_tables(scrape.get_soup(url)), 200
         else:
-            return "/table/www.the-website-you-want-to-scrape.com", 404
+            return "/table?url=www.the-website-you-want-to-scrape.com", 404
 
 api.add_resource(Table, "/table/")
 
+#Return Table of Content from Wiki Sites (Currently just German.wikis)
 class TOC(Resource):
 
-    def get(self, url=None):
-        # """
-        # Get table of contents from a wiki site
-        # ---
-        # tags:
-        #   - Scrape Table of Content from a Wiki site
-        # summary: Parse a Wiki URL, get the Table of Content from a Wiki site. 
-        # description: When passing a WebUrl address, that belongs to a Wiki site, the Table of Content can be retrieved. 
-        # parameters:
-        #   - name: url
-        #     in: path
-        #     required: true
-        #     schema:
-        #       type: string
-        # responses:
-        #   200:
-        #     description: OK
-        # """
-        print(url)
+    def get(self):
+        url  = request.args.get('url')
+        logger.log_to_file(url)
         if(url != None):
             return scrape.table_of_contents_level_all_with_number(scrape.get_soup(url)), 200
         else:
-            return "/toc/www.the-website-you-want-to-scrape.com", 404
+            return "/toc?url=www.the-website-you-want-to-scrape.com", 404
 
-api.add_resource(TOC, "/toc/<path:url>")
+api.add_resource(TOC, "/toc/")
 
+#Returns Hyperlinks from Websites, you can even Filter
+## or if Hyperlinks Contains keywords like "www" or "html" you can send string with "|" as separator 
+### like so ".de|.com" Stichwort Google Font Abmahnung ;) 
 class Link(Resource):
     
     def get(self):
         url  = request.args.get('url')
-        # """
-        # Get all hyperlinks from a website
-        # ---
-        # tags:
-        #   - Scrape Hyperlinks 
-        # summary: Parse a URL, get get all hyperlinks from a Website
-        # description: When passing a WebUrl address, all the hyperlinks are stored in a json file. 
-        # parameters:
-        #   - name: url
-        #     in: path
-        #     required: true
-        #     schema:
-        #       type: string
-        # responses:
-        #   200:
-        #     description: OK
-        # """
-        print(url)
-        if(url != None):
+        filter  = request.args.get('filter')
+        contains = request.args.get('contains')
+        logger.log_to_file(url)
+        
+        if(url != None and filter != None):
+            return scrape.hyperlink_filter(scrape.get_soup(url)), 200
+        elif(url != None and contains != None):
+            return scrape.hyperlink_contains(scrape.get_soup(url),contains), 200
+        elif(url != None):
             return scrape.hyperlink(scrape.get_soup(url)), 200
         else:
             return "/link/?url=www.the-website-you-want-to-scrape.com", 404
 
 api.add_resource(Link, "/link/")
+
 #Try to scrape the contact forms of a given link
-##-argument-
-###none=(gives back all data)
-###find=(trys to find phone and e-mail)
-###text=(gives back text)
-###url=(gives back url)
+##returns json structure with url phone and mail address of given web-address
 class Contact(Resource):
 
-    def get(self,argument=None, url=None):
-        # """
-        # Get contact information from a website
-        # ---
-        # tags:
-        #   - Scrape contact information
-        # summary: Parse a URL, retrieve all Contact data from a Website
-        # description: When passing a WebUrl address, the script trys to find all contanct information. There are diffrent Methods to Choose from. 
-        # parameters:
-        #   - in: path
-        #     name: argument
-        #     required: true
-        #     schema:
-        #       type: string
-        #       enum: [find, text, url]
-        #       example: find
-        #   - in: path
-        #     name: url
-        #     required: true
-        #     schema:
-        #       type: string
-        # responses:
-        #   200:
-        #     description: OK
-        # """
+    def get(self):
+        url  = request.args.get('url')
+        logger.log_to_file(url)
         try:
             if(url != None):
-                if(argument != None):
-                    if(argument == "find"):
-                        return scrape_contact.contact_find(scrape.get_soup(url),url), 200
-                    elif(argument == "text"):
-                        return scrape_contact.contact_main(scrape.get_soup(url),url), 200
-                    elif(argument == "url"):
-                        return scrape_contact.contact_url(scrape.get_soup(url),url), 200
-                    else:
-                        return "Argument invalid try /contact/find/www.the-website-you-want-to-scrape.com. Use following arguments find | text | url", 404
-                return scrape_contact.contact_main(scrape.get_soup(url),url), 200
+                return scrape_contact.contact_find(scrape.get_soup(url),url), 200
             else:
-                return "Missing URL! Try /contact/www.the-website-you-want-to-scrape.com", 404
+                return "Missing URL! Try /contact?url=www.the-website-you-want-to-scrape.com", 404
         except Exception as e:
                 return  "Error:" + str(e)
     def post(self):
-        # """
-        # Get contact information from multiple websites
-        # ---
-        # tags:
-        #   - Scrape contact information
-        # summary: Parse multiple URLs, retrieve contact data from each website
-        # description: Pass a list of URLs in JSON format to scrape contact information from multiple websites.
-        # requestBody:
-        #     required: true
-        #     content:
-        #         application/json:
-        #             schema:
-        #                 type: object
-        #                 properties:
-        #                     keyword:
-        #                         type: string
-        #                         example: Bachelor
-        #                     urls:
-        #                         type: array
-        #                         items:
-        #                             type: string
-        #                 example: 
-        #                     keyword: Bachelor
-        #                     urls: 
-        #                         - "https://rwu.de"
-        #                         - "https://www.uni-konstanz.de/"
-        # responses:
-        #   200:
-        #     description: OK
-        # """
+        # example: 
+        #       [
+        #        "https://rwu.de",
+        #        "https://www.uni-heidelberg.de/de",
+        #        "https://www.uni-konstanz.de/"
+        #        ]
+        
         data = request.get_json()
         if data is None or not isinstance(data, list):
             return "Wrong Input! need a JSON format!", 400
@@ -243,48 +159,49 @@ class Contact(Resource):
 
         return results, 200
 
-api.add_resource(Contact, "/contact/", "/contact/<string:argument>/<path:url>")
+api.add_resource(Contact, "/contact/")
 
-class Heading(Resource):
 
-    def get(self, url=None):
-        print(url)
-        if(url != None):
-            return scrape.heading_h2_with_text_name_image_auto(scrape.get_soup(url)), 200
-        else:
-            return "/heading/www.the-website-you-want-to-scrape.com", 404
-
-api.add_resource(Heading, "/heading/<path:url>")
-
+#WIKI ONLY
 class Image(Resource):
 
-    def get(self, url=None):
-        print(url)
+    def get(self):
+        url  = request.args.get('url')
+        logger.log_to_file(url)
         if(url != None):
             return scrape.image_full_all(scrape.get_soup(url)), 200
         else:
-            return "/image/www.the-website-you-want-to-scrape.com", 404
+            return "/image?url=www.the-website-you-want-to-scrape.com", 404
 
-api.add_resource(Image, "/image/<path:url>")
+api.add_resource(Image, "/image/")
 
+#Returns Text
+## Can return Text cleaned from annoying \n etc.
 class Text(Resource):
 
-    def get(self, url=None):
-        print(url)
-        if(url != None):
-            return scrape.titles_with_text(scrape.get_soup(url)), 200
+    def get(self):
+        url  = request.args.get('url')
+        clean  = request.args.get('clean')
+        logger.log_to_file(url)
+        if(url != None and clean != None):
+            text = scrape.get_soup(url).get_text()
+            clean_text = text.replace("\n", "").replace("\t", "").replace("\r", "")
+            return clean_text, 200
+        elif(url != None and clean == None):
+            return scrape.get_soup(url).get_text(), 200
         else:
-            return "/text/www.the-website-you-want-to-scrape.com", 404
+            return "/text?url=www.the-website-you-want-to-scrape.com  use clean key true for removing annoying \\n", 404
 
-api.add_resource(Text, "/text/<path:url>")
+api.add_resource(Text, "/text/")
 
+#WIKI ONLY
 class Auto(Resource):
 
     def get(self):
         type = request.args.get('type')
         url = request.args.get('url')
 
-        print(url)
+        logger.log_to_file(url)
         if(url != None and type == "all" or type == None):
             return scrape_wiki_dyn.all_info(scrape.get_soup(url)), 200
         elif(url != None and type == "each"):
@@ -297,22 +214,24 @@ class Auto(Resource):
 
 api.add_resource(Auto, "/auto/")
 
-class Finds(Resource):
+#searches for a Keyword on the website
+# returns Text in which keyword was found
+# you even can display metrics 
+class Keyword(Resource):
 
-    def get(self, url=None, item=None, element=None):
-        print(url)
-        if(url != None and item != None and element == None):
-            return scrape.find_text(scrape.get_soup(url),item), 200
-        if(url != None and item != None and element == "metrics"):
-            return scrape.find_text_metrics(scrape.get_soup(url),item), 200
-        elif(url != None and item != None and element == "class"):
-            return scrape.find_class(scrape.get_soup(url),item), 200
-        elif(url != None and item != None and element == "id"):
-            return scrape.find_id(scrape.get_soup(url),item), 200
-        elif(url != None and item != None and element !=None):
-            return scrape.find_element(scrape.get_soup(url),item,element), 200
+    def get(self):
+        url = request.args.get('url')
+        keyword = request.args.get('keyword')
+        metrics = request.args.get('metrics')
+        logger.log_to_file(url)
+        if(url != None and keyword != None and metrics == None):
+            return scrape.find_text(scrape.get_soup(url),keyword), 200
+        elif(url != None and keyword != None and metrics != 'false'):
+            return scrape.find_text_metrics(scrape.get_soup(url),keyword), 200
+        elif(url != None and keyword != None and metrics == 'false'):
+            return scrape.find_text(scrape.get_soup(url),keyword), 200
         else:
-            return "/find/the-item-you-want-to-scrape/www.the-website-you-want-to-scrape.com", 404
+            return "/keyword?url=www.the-website-you-want-to-scrape.com&keyword=Studium&metrics=true", 404
 
     def post(self):
         data = request.get_json()
@@ -337,8 +256,18 @@ class Finds(Resource):
 
         return results, 200
 
-api.add_resource(Finds, "/find","/find/","/find/<string:item>/<path:url>","/find/<string:item>/<string:element>/<path:url>")
+api.add_resource(Keyword, "/keyword/")
 
+
+#  elif(url != None and item != None and element == "class"):
+#             return scrape.find_class(scrape.get_soup(url),item), 200
+#         elif(url != None and item != None and element == "id"):
+#             return scrape.find_id(scrape.get_soup(url),item), 200
+#         elif(url != None and item != None and element !=None):
+#             return scrape.find_element(scrape.get_soup(url),item,element), 200
+
+
+# EXPERIMENTAL
 class Summarizer(Resource):
 
     def get(self):
@@ -354,7 +283,7 @@ class Summarizer(Resource):
 
 api.add_resource(Summarizer, "/summarizer/")
 
-
+#WIKI ONLY
 class FindURL(Resource):
 
     def get(self):
@@ -370,26 +299,27 @@ api.add_resource(FindURL, "/findurl/")
 
 class Analysis(Resource):
     #luhn.luhn_summarizer(scrape.concatenate_texts(scrape.analyse_keywords(scrape.get_soup(url),keyword)),3), 200
-    def get(self, url=None,  analysis_type=None):
-        
-        num_results  = request.args.get('num_results')
-        print(url)
-        if(url != None and analysis_type== "ranking" and num_results  == None):
-            return lda.topic_ranking(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url))),3), 200
-        elif(url != None and analysis_type== "ranking" and num_results  != None):
-            return lda.topic_ranking(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url))),num_results), 200
-        elif(url != None and analysis_type== "luhn" and num_results  == None):
-            return luhn.luhn_summarizer(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url)))), 200
-        elif(url != None and analysis_type== "luhn" and num_results  != None):
-            return luhn.luhn_summarizer_number(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url))),num_results), 200
-        elif(url != None and analysis_type== "lsa" and num_results  == None):
-            return lsa.lsa_summarzier(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url)))), 200
-        elif(url != None and analysis_type== "lsa" and num_results  != None):
-            return lsa.lsa_summarzier_number(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url))),num_results), 200
-        elif(url != None and analysis_type== "lex" and num_results  == None):
-            return lex_rank.bulletpoints(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url)))), 200
-        elif(url != None and analysis_type== "lex" and num_results  != None):
-            return lex_rank.bulletpoints_number(scrape.convert_output_to_string(scrape.all_text(scrape.get_soup(url))),num_results), 200
+    def get(self):
+        url  = request.args.get('url')
+        algorithm  = request.args.get('algorithm')
+        results  = request.args.get('results')
+        logger.log_to_file(url)
+        if(url != None and algorithm== "lda" and results  == None):
+            return lda.topic_ranking((scrape.all_text(scrape.get_soup(url))),3), 200
+        elif(url != None and algorithm== "lda" and results  != None):
+            return lda.topic_ranking((scrape.all_text(scrape.get_soup(url))),results), 200
+        elif(url != None and algorithm== "luhn" and results  == None):
+            return luhn.luhn_summarizer((scrape.all_text(scrape.get_soup(url)))), 200
+        elif(url != None and algorithm== "luhn" and results  != None):
+            return luhn.luhn_summarizer_number((scrape.all_text(scrape.get_soup(url))),results), 200
+        elif(url != None and algorithm== "lsa" and results  == None):
+            return lsa.lsa_summarzier((scrape.all_text(scrape.get_soup(url)))), 200
+        elif(url != None and algorithm== "lsa" and results  != None):
+            return lsa.lsa_summarzier_number((scrape.all_text(scrape.get_soup(url))),results), 200
+        elif(url != None and algorithm== "lex" and results  == None):
+            return lex_rank.bulletpoints((scrape.all_text(scrape.get_soup(url)))), 200
+        elif(url != None and algorithm== "lex" and results  != None):
+            return lex_rank.bulletpoints_number((scrape.all_text(scrape.get_soup(url))),results), 200
         else:
             return "/analysis/analysis_type/www.the-website-you-want-to-scrape.com  or /analysis/analysis_type/www.the-website-you-want-to-scrape.com?num_results=5", 404
 
@@ -397,26 +327,34 @@ class Analysis(Resource):
         data = request.get_json()
         if data is None:
             return "Wrong Input. Need a JSON format!", 400
-        keyword = data.get("keyword")
+        algorithm = data.get("algorithm")
         urls = data.get("urls")
 
         results = []
         tmp_result = []
         for url in urls:
             try:
-                tmp_result=scrape.analyse_keywords(scrape.get_soup(url), keyword)
+                if algorithm == "lda":
+                    tmp_result=lda.topic_ranking((scrape.all_text(scrape.get_soup(url))),3)
+                elif algorithm == "luhn":
+                    tmp_result=luhn.luhn_summarizer((scrape.all_text(scrape.get_soup(url))))
+                elif algorithm == "lsa":
+                    tmp_result=lsa.lsa_summarzier((scrape.all_text(scrape.get_soup(url))))
+                elif algorithm == "lex":
+                    tmp_result=lex_rank.bulletpoints((scrape.all_text(scrape.get_soup(url))))
+                else:
+                    return "Wrong Json Input, Maybe Wrong algorithm?", 404
                 result = {
                     "url": url,
-                    "metrics": tmp_result[0],
-                    "data":tmp_result[1:]
-                }
+                    "topics": tmp_result,
+                    }
                 results.append(result)
             except Exception as e:
                 results.append({"url": url, "error": str(e)})
 
         return results, 200
 
-api.add_resource(Analysis, "/analysis","/analysis/","/analysis/<string:analysis_type>/<path:url>")
+api.add_resource(Analysis, "/analysis/")
 
 
 

@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 import re
 from urllib.parse import unquote
 
-# return raw html
+# return soup object
 def get_soup(url):
     # decoded_url = unquote(url)
     # response = requests.get(decoded_url)
@@ -17,6 +17,22 @@ def get_soup(url):
         return "403 Forbidden"+str(Exception)
     soup = BeautifulSoup(html, 'html.parser', from_encoding='utf-8')
     return soup
+# return raw html
+def get_html(url):
+    response = requests.get(url.encode('utf-8'))
+    html = response.content
+    return html
+
+def get_body(url):
+    response = requests.get(url.encode('utf-8'))
+    html = response.content
+    soup = BeautifulSoup(html, 'html.parser', from_encoding='utf-8')
+    tag = soup.body
+    result= []
+    # Print each string recursively
+    for string in tag.strings:
+        result.append(string.strip)
+    return result
 
 # get table ADD parameter which
 
@@ -331,6 +347,21 @@ def hyperlink(soup):
         result.append(link.get('href'))
     return result
 
+def hyperlink_filter(soup):
+    result = []
+    for link in soup.find_all('a'):
+        href = link.get('href')
+        if href.startswith(('https://', 'http://', 'www')):
+            result.append(href)
+    return result
+
+def hyperlink_contains(soup, separator):
+    result = []
+    for link in soup.find_all('a'):
+        href = link.get('href')
+        if any(x in href for x in separator.split('|')):
+            result.append(href)
+    return result
 
 
 # trys to find corresponding text and return it. Element must be string
@@ -342,7 +373,9 @@ def all_text_2(soup):
     return result
 
 def all_text(soup):
-    return soup.get_text()
+    print(' '.join(soup.get_text().strip().replace('\n', '').replace('\r', ' ').split()))
+
+    return (' '.join(soup.get_text().strip().replace('\n', '').replace('\r', ' ').split()))
 
 def all_text_min_length(soup):
     result = []
@@ -362,7 +395,7 @@ def convert_output_to_string(output):
 def find_text(soup, text):
     result = []
     for tag in soup.find_all(text=True):
-        if text in tag:
+        if any(x in tag for x in text.split('|')):
             # Strips annnoying return etc. also removes spaces inbetween the text
             result.append(' '.join(tag.text.strip().replace('\n', '').replace('\r', ' ').split()))
     return result
@@ -376,12 +409,12 @@ def find_text_metrics(soup, text):
     total_key_hit = 0
     total_key_hit_near = 0 
     for tag in soup.find_all(text=True):
-        if text.lower() in tag.lower():
+        if any(x in tag.lower() for x in text.lower().split('|')):
             word_count = 0
             text_counter += 1
             # Strips annnoying return etc. also removes spaces inbetween the text
             keyword_hits = tag.text.strip().count(text)
-            keyword_hits_near = tag.text.strip().count(text.lower())
+            keyword_hits_near = tag.text.strip().lower().count(text.lower())
             word_count += len(tag.text.strip().split())
             total_words += word_count
             total_key_hit += keyword_hits
