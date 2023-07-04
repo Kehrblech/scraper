@@ -164,7 +164,7 @@ paths:
   /text/":
     get:
       tags:
-        - "Scrape text content"
+        - "Web scraping"
       summary: "Parse a URL, get the text content"
       description: "When passing a WebUrl address, the text content can be retrieved. Optionally, the text can be cleaned from newline characters."
       parameters:
@@ -288,7 +288,7 @@ paths:
   /findurl/:
     get:
       tags:
-        - "URL scraping"
+        - "Scrape Wiki"
       summary: "Find URLs related to a specific topic"
       description: "Searches for URLs related to the specified topic on Wikipedia."
       parameters:
@@ -356,3 +356,87 @@ paths:
           description: "OK"
         "400":
           description: "Wrong input format"
+  /fetch/:
+    get:
+      tags:
+        - "Web scraping"
+      summary: "Fetch elements with attributes from the HTML document"
+      description: "Fetches tags, attributes, and HTML elements from the HTML document of the specified web page. You can specify the tag, attribute, and keyword to search for, and choose the return value to be HTML or a specific attribute value."
+      parameters:
+        - name: "url"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+          example: "https://www.rwu.de"
+        - name: "tag"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+          example: "a"
+        - name: "attribut"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+          example: "href"
+        - name: "keyword"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+          example: ".de"
+        - name: "html"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+          example: "false"
+        - name: "return_value"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+          example: "href"
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "Missing parameters. Try /fetch/?url=www.the-website-you-want-to-scrape.com&keyword='my-class'&attribute='class'."
+  /retrieve/:
+    get:
+      tags:
+        - "Web scraping"
+      summary: "Retrieve elements with attributes from the HTML document"
+      description: "Retrieves attributes, and HTML elements from the HTML document of the specified web page. #### “Retrieve” always means you use some ways or methods to get back something. It may not be the real objects. It focuses on the result (In dog View)."
+      parameters:
+        - name: "url"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+          example: "https://www.rwu.de"
+        - name: "attribut_value"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+          example: "m-0"
+        - name: "attribut"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+          example: "class"
+        - name: "html"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+          example: "false"
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "Missing parameters. Try /retrieve/?url=www.the-website-you-want-to-scrape.com&attribut_value='my-class'&attribut='class'."

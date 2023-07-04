@@ -1,6 +1,6 @@
-
+body
 h1 {
-  font-size: 44px;
+  font-size: 54px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 h2 {
@@ -8,17 +8,24 @@ h2 {
 }
 #hero {
   flex-direction: row;
-
+  margin-top: 5.5rem;
+}
+img {
+  object-fit: contain;
 }
 #hero-text {
   flex-direction: column;
 }
+
 #search {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   margin: 2rem;
+}
+.ideabutton::before {
+  content: "Generate Idea's 💡";
 }
 .input-button-container {
   margin-right: 8px;
@@ -27,4 +34,22 @@ h2 {
 button {
   margin: 0.1rem;
   margin-right: 1rem;
+}
+/* Mobile styles */
+@media (max-width: 768px) {
+  #hero,
+  #hero-text,
+  #search {
+    flex-direction: column;
+  }
+  .ideabutton::before {
+    content: "💡";
+  }
+  #hero-img {
+    margin-top: 2.2rem;
+    text-align: center;
+  }
+  #hero-img img {
+    width: 55%;
+  }
 }

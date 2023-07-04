@@ -48,6 +48,10 @@ def index():
 @app.route('/login')
 def login():
     return render_template('login.html')
+@app.route('/support')
+def support():
+    return render_template('support.html')
+
  
 api = Api(app)
 CORS(app)
@@ -355,6 +359,103 @@ class Analysis(Resource):
         return results, 200
 
 api.add_resource(Analysis, "/analysis/")
+
+#Fetches Elements with Help of Attriubtes from the HTML-Document
+## Fetches Tags Attributes and HTML
+### You can even pick the return_value to be HTML or any Attribut like href or anything else 
+#### “Fetch” means you have to leave the place where you are now and get something specifically ,then go back to your original(In Dog View). So you know what you want, needs more parameters.
+class Fetch(Resource):
+    
+    def get(self):
+        url  = request.args.get('url')
+        keyword  = request.args.get('keyword')
+        attribut = request.args.get('attribut')
+        html = request.args.get('html')
+        tag = request.args.get('tag')
+        return_value = request.args.get('return_value')
+        
+        logger.log_to_file(url)
+        
+        # if url is not None and tag is not None and attribut is not None and keyword is not None and (html == 'false' or None) and return_value is not None:
+        #     return scrape.find_element_with_attribut_name_return(scrape.get_soup(url), tag, attribut, keyword, return_value), 200
+        # elif url is not None and tag is not None and attribut is None and keyword is None and (html == 'false' or None):
+        #     return scrape.find_element(scrape.get_soup(url), tag), 200
+        # elif url is not None and tag is not None and attribut is None and keyword is None and html != 'false':
+        #     return scrape.find_element_html(scrape.get_soup(url), tag), 200
+        # elif url is not None and tag is not None and attribut is not None and keyword is None and (html == 'false' or None):
+        #     return scrape.find_element_with_attribut(scrape.get_soup(url), tag, attribut), 200
+        # elif url is not None and tag is not None and attribut is not None and keyword is None and html != 'false':
+        #     return scrape.find_element_with_attribut_html(scrape.get_soup(url), tag, attribut), 200
+        # elif url is not None and tag is not None and attribut is not None and keyword is not None and (html == 'false' or None):
+        #     return scrape.find_element_with_attribut_name(scrape.get_soup(url), tag, attribut, keyword), 200
+        # elif url is not None and tag is not None and attribut is not None and keyword is not None and html != 'false':
+        #     return scrape.find_element_with_attribut_name_html(scrape.get_soup(url), tag, attribut, keyword), 200
+        
+        
+        if url is not None and tag is not None and attribut is None and keyword is None and (html == 'false' or html is None) and return_value is None:
+            return scrape.find_element(scrape.get_soup(url), tag), 200
+        elif url is not None and tag is not None and attribut is None and keyword is None and (html == 'false' or html is None) and return_value is None:
+            return scrape.find_element_html(scrape.get_soup(url), tag), 200
+        elif url is not None and tag is not None and attribut is not None and keyword is None and (html == 'false' or html is None)  and return_value is None:
+            return scrape.find_element_with_attribut(scrape.get_soup(url), tag, attribut), 200
+        elif url is not None and tag is not None and attribut is not None and keyword is None and (html != 'false' or None)  and return_value is None:
+            return scrape.find_element_with_attribut_html(scrape.get_soup(url), tag, attribut), 200
+        elif url is not None and tag is not None and attribut is not None and keyword is not None and (html == 'false' or html is None)  and return_value is None:
+            return scrape.find_element_with_attribut_name(scrape.get_soup(url), tag, attribut, keyword), 200
+        elif url is not None and tag is not None and attribut is not None and keyword is not None and (html != 'false' or None) and return_value is None:
+            return scrape.find_element_with_attribut_name_html(scrape.get_soup(url), tag, attribut, keyword), 200
+        elif url is not None and tag is not None and attribut is not None and keyword is not None and (html == 'false' or html is None) and return_value is not None:
+            return scrape.find_element_with_attribut_name_return(scrape.get_soup(url), tag, attribut, keyword, return_value), 200
+        else:
+            return "/fetch/?url=www.the-website-you-want-to-scrape.com&keyword='my-class'&attribut='class'", 404
+    
+        
+        # elif url is not None and tag is not None and attribut is not None and keyword is None and html is None:
+        #     return scrape.find_format(scrape.get_soup(url), tag, attribut), 200
+        # elif url is not None and tag is not None and attribut is not None and keyword is None and html != 'false':
+        #     return scrape.find_format_html(scrape.get_soup(url), tag, attribut), 200
+        
+
+api.add_resource(Fetch, "/fetch/")
+
+#Retrieve Elements with Help of Attriubtes from the HTML-Document
+## Retrieve Tags Attributes and HTML
+### You can even pick the return_value to be HTML or any Attribut like href or anything else 
+#### “Retrieve” always means you use some ways or methods to get back something. It may not be the real objects. It focuses on the result. (In dog View)
+class Retrieve(Resource):
+    
+    def get(self):
+        url  = request.args.get('url')
+        attribut_value  = request.args.get('attribut_value')
+        attribut = request.args.get('attribut')
+        html = request.args.get('html')
+        logger.log_to_file(url)
+        
+        
+        
+        
+        
+        if url is not None and attribut == 'class' and attribut_value is not None and (html == 'false' or None):
+            return scrape.find_class(scrape.get_soup(url), attribut_value), 200
+        elif url is not None and attribut == 'class' and attribut_value is not None and html != 'false':
+            return scrape.find_class_html(scrape.get_soup(url), attribut_value), 200
+        elif url is not None and attribut == 'id' and attribut_value is not None and (html == 'false' or None) :
+            return scrape.find_id(scrape.get_soup(url), attribut_value), 200
+        elif url is not None and attribut == 'id' and attribut_value is not None and html != 'false':
+            return scrape.find_id_html(scrape.get_soup(url), attribut_value), 200
+        elif url is not None and attribut is None and attribut_value is not None and (html == 'false' or None):
+            return scrape.find_attribut(scrape.get_soup(url), attribut_value, attribut), 200
+        elif url is not None and attribut is None and attribut_value is not None and html != 'false' :
+            return scrape.find_attribut_html(scrape.get_soup(url), attribut_value, attribut), 200
+        
+        # elif url is not None and tag is not None and attribut is not None and keyword is None and html is None:
+        #     return scrape.find_format(scrape.get_soup(url), tag, attribut), 200
+        # elif url is not None and tag is not None and attribut is not None and keyword is None and html != 'false':
+        #     return scrape.find_format_html(scrape.get_soup(url), tag, attribut), 200
+        else:
+            return "/retrieve/?url=www.the-website-you-want-to-scrape.com&keyword='my-class'&attribut='class'", 404
+
+api.add_resource(Retrieve, "/retrieve/")
 
 
 

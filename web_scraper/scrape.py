@@ -436,35 +436,123 @@ def find_text_metrics(soup, text):
     return result
 
 
-def find_class(soup, item):
+def find_class(soup, name):
     result = []
-    for tag in soup.find_all(class_=re.compile(item)):
-        print(tag)
+    for tag in soup.find_all(class_=re.compile(name)):
         # Strips annnoying return etc. also removes spaces inbetween the text
         result.append(tag.get_text(strip=True))
+    return result
+def find_class_html(soup, name):
+    result = []
+    for tag in soup.find_all(class_=re.compile(name)):
+        # Strips annnoying return etc. also removes spaces inbetween the text
+        result.append(tag.prettify())
     return result
 
 # NEEDS adjustment doesent work always like intendet
 
 
-def find_id(soup, item):
+
+def find_id(soup, name):
     result = []
-    for tag in soup.find_all(id_=re.compile(item)):
+    for tag in soup.find_all(id_=re.compile(name)):
+        # Strips annnoying return etc. also removes spaces inbetween the text
+        result.append(tag.get_text(strip=True))
+    return result
+
+def find_id_html(soup, name):
+    result = []
+    for tag in soup.find_all(id_=re.compile(name)):
         print(tag)
         # Strips annnoying return etc. also removes spaces inbetween the text
-        result.append()
+        result.append(tag.prettify())
     return result
 
-
-def find_element(soup, item, element):
+def find_attribut(soup, name, attribut):
     result = []
 
-    for tag in soup.find_all(element):
-        if item in tag[element]:
-            # Strips annnoying return etc. also removes spaces inbetween the text
-            result.append(' '.join(tag.text.strip().replace(
-                '\n', '').replace('\r', ' ').split()))
+    for tag in soup.find_all(attrs={attribut: re.compile('.*')}):
+        if name in tag.attrs.get(attribut, ''):
+            result.append(tag.get_text().strip())
+
     return result
+
+def find_attribut_html(soup, name, attribut):
+    result = []
+
+    for tag in soup.find_all(attrs={attribut: re.compile('.*')}):
+        if name in tag.attrs.get(attribut, ''):
+            result.append(tag.prettify())
+
+    return result
+
+def find_element(soup, tag_name):
+    result = []
+    for tag in soup.find_all(name=tag_name):
+        result.append(tag.get_text().strip())
+    return result if result else None
+
+def find_element_html(soup, tag_name):
+    result = []
+    for tag in soup.find_all(name=tag_name):
+        result.append(tag.prettify())
+    return result if result else None
+
+def find_element_with_attribut(soup, tag_name, attribut):
+    result = []
+    for tag in soup.find_all(tag_name):
+        if attribut in tag.attrs:
+            result.append(tag.get_text().strip())
+    return result 
+
+def find_element_with_attribut_html(soup, tag_name, attribut):
+    result = []
+    for tag in soup.find_all(name=tag_name):
+        if attribut in tag.attrs:
+            result.append(tag.prettify())
+    return result if result else None
+
+def find_element_with_attribut_name(soup, tag_name, attribut, keyword):
+    result = []
+    for tag in soup.find_all(tag_name):
+        if attribut in tag.attrs:
+            if keyword in str(tag.attrs).strip():
+                result.append(tag.get_text().strip())
+    return result 
+
+def find_element_with_attribut_name_html(soup, tag_name, attribut, keyword):
+    result = []
+    for tag in soup.find_all(tag_name):
+        if attribut in tag.attrs:
+            if keyword in str(tag.attrs):
+                result.append(tag.prettify())
+    return result 
+
+def find_element_with_attribut_name_return(soup, tag_name, attribut, keyword, return_value):
+    
+    result = []
+    for tag in soup.find_all(tag_name):
+        if attribut in tag.attrs and keyword in str(tag.attrs).strip():
+            attr_value = tag.get(return_value)
+            result.append(attr_value)
+    return result
+
+def find_format(soup,tag_name,attriubtes):
+    result = []
+    for tag in soup.find_all(name=tag_name, attrs=attriubtes):
+        result.append(tag.get_text().strip())
+    return result
+def find_format_html(soup,tag_name,attriubtes ):
+    result = []
+    for tag in soup.find_all(name=tag_name, attrs=attriubtes):
+        result.append(tag.prettify())
+    return result
+
+
+# NEEDS adjustment doesent work always like intendet
+
+
+
 
 
 

@@ -142,7 +142,7 @@ paths:
                         email: "info@uni-konstanz.de"
         "400":
           description: "Wrong Input! need a JSON format!"
-  /image/":
+  /image/:
     get:
       tags:
         - "Scrape images from Wiki sites"
@@ -159,7 +159,7 @@ paths:
           description: "OK"
         "404":
           description: "Missing URL! Try /image?url=www.the-website-you-want-to-scrape.com"
-  /text/":
+  /text/:
     get:
       tags:
         - "Scrape text content"
@@ -181,7 +181,7 @@ paths:
           description: "OK"
         "404":
           description: "Missing URL! Try /text?url=www.the-website-you-want-to-scrape.com. Use the 'clean' parameter with a value of 'true' to remove newline characters."
-  /auto/":
+  /auto/:
     get:
       tags:
         - "Automated scraping"

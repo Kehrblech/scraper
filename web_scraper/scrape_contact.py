@@ -1,7 +1,6 @@
 import json
 from bs4 import BeautifulSoup
 import requests
-import errors
 import scrape
 import scrape_each_dyn
 import search_contact
